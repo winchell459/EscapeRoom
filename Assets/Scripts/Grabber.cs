@@ -36,6 +36,19 @@ public class Grabber : MonoBehaviour
                         }
 
                     }
+
+                    else if(hit.transform.GetComponent<UnityEngine.UI.InputField>())
+                    {
+                        Debug.Log("InputField Found");
+                        hit.transform.GetComponent<UnityEngine.UI.InputField>().Select();
+                    }
+
+                    else if (hit.transform.CompareTag("Button"))
+                    {
+                        Debug.Log("Button Found");
+                        hit.transform.GetComponent<UnityEngine.UI.Button>().Select();
+                        hit.transform.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+                    }
                 }
 
             }

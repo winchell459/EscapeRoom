@@ -20,21 +20,33 @@ public class Grabber : MonoBehaviour
                 RaycastHit hit;
                 if(Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
                 {
-                    if(hit.transform.CompareTag("Grabable"))
+                    if (hit.transform.CompareTag("Grabable"))
                     {
                         holdingObject = hit.transform;
                         holdingObject.position = pointer.forward * holdingDistance + pointer.position;
                         holdingObject.parent = pointer;
                         Destroy(holdingObject.GetComponent<Rigidbody>());
                     }
-                    
-                    else if(hit.transform.CompareTag("Book"))
+
+                    else if (hit.transform.CompareTag("Book"))
                     {
-                        if(FindObjectOfType<BookShelf>().BookSelected(hit.transform.gameObject))
+                        if (FindObjectOfType<BookShelf>().BookSelected(hit.transform.gameObject))
                         {
                             holdingObject = hit.transform;
                         }
 
+                    }
+                    else if (hit.transform.GetComponent<UnityEngine.UI.InputField>())
+                    {
+                        Debug.Log("InputField found");
+                        hit.transform.GetComponent<UnityEngine.UI.InputField>().Select();
+                    }
+
+                    else if (hit.transform.CompareTag("Button"))
+                    {
+                        Debug.Log("Button found");
+                        hit.transform.GetComponent<UnityEngine.UI.Button>().Select();
+                        hit.transform.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
                     }
                 }
 

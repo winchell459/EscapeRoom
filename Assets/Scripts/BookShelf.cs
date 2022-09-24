@@ -99,7 +99,6 @@ public class BookShelf : Puzzle
 
             b2.transform.position = new Vector3(x0 + w2 / 2, b2.transform.position.y, b2.transform.position.z);
 
-            //check for book between
             b1.transform.position = new Vector3(x0 + w2 + w1 / 2, b1.transform.position.y, b1.transform.position.z);
 
             //swap book in the shelf.Books

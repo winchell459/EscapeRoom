@@ -34,7 +34,13 @@ public class Grabber : MonoBehaviour
                         {
                             holdingObject = hit.transform;
                         }
-
+                    }
+                    else if(hit.transform.CompareTag("Flask"))
+                    {
+                        if (FindObjectOfType<FlaskStand>().FlaskSelected(hit.transform.gameObject))
+                        {
+                            holdingObject = hit.transform;
+                        }
                     }
 
                     else if (hit.transform.CompareTag("InputField"))
@@ -59,6 +65,7 @@ public class Grabber : MonoBehaviour
                     holdingObject.parent = null;
                     holdingObject.gameObject.AddComponent<Rigidbody>();
                 }
+                
                 //stop bookshelf selection mode
                 
                 holdingObject = null;

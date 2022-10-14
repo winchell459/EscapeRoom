@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerObject: {fileID: 689581760}
+  completeObject: {fileID: 36441575}
 --- !u!65 &371828689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1659,6 +1660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerObject: {fileID: 886109967}
+  completeObject: {fileID: 36441575}
 --- !u!65 &884397043
 BoxCollider:
   m_ObjectHideFlags: 0

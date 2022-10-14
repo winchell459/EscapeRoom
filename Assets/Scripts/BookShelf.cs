@@ -83,7 +83,7 @@ public class BookShelf : Puzzle
 
             Transform b1 = selectedBook.transform; // left
             Transform b2; // right
-            if (selectedBook.transform.position.x > book.transform.position.x)
+            if (selectedBook.transform.localPosition.x > book.transform.localPosition.x)
             {
                 b1 = book.transform;
                 b2 = selectedBook.transform;
@@ -95,11 +95,11 @@ public class BookShelf : Puzzle
 
             float w1 = b1.transform.lossyScale.x;
             float w2 = b2.transform.lossyScale.x;
-            float x0 = b1.transform.position.x - w1 / 2;
+            float x0 = b1.transform.localPosition.x - w1 / 2;
 
-            b2.transform.position = new Vector3(x0 + w2 / 2, b2.transform.position.y, b2.transform.position.z);
+            b2.transform.localPosition = new Vector3(x0 + w2 / 2, b2.transform.localPosition.y, b2.transform.localPosition.z);
 
-            b1.transform.position = new Vector3(x0 + w2 + w1 / 2, b1.transform.position.y, b1.transform.position.z);
+            b1.transform.localPosition = new Vector3(x0 + w2 + w1 / 2, b1.transform.localPosition.y, b1.transform.localPosition.z);
 
             //swap book in the shelf.Books
 
@@ -160,7 +160,7 @@ public class BookShelf : Puzzle
         {
             for (int i = 0; i < shelf.books.Length - 1; i += 1)
             {
-                if (shelf.books[i].transform.position.x > shelf.books[i + 1].transform.position.x)
+                if (shelf.books[i].transform.localPosition.x > shelf.books[i + 1].transform.localPosition.x)
                 {
                     GameObject temp = shelf.books[i];
                     shelf.books[i] = shelf.books[i + 1];

@@ -11,6 +11,7 @@ TagManager:
   - Button
   - Flask
   - Statue
+  - Locked
   layers:
   - Default
   - TransparentFX

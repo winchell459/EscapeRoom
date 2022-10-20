@@ -52,6 +52,10 @@ public class Grabber : MonoBehaviour
                     {
                         hit.transform.gameObject.SendMessage("Selected");
                     }
+                    else if (hit.transform.CompareTag("Locked"))
+                    {
+                        hit.transform.gameObject.SendMessage("Locked");
+                    }
                 }
             }
             else

@@ -17,6 +17,8 @@ public class InputText : Puzzle
         if(inputText.text == passcode)
         {
             inputField.interactable = false;
+            Debug.Log("correct");
+            SendMessage("Unlocked");
             FindObjectOfType<GameHandler>().ObjectTriggered(this);
         }
     }

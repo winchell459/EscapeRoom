@@ -56,13 +56,24 @@ public class CabinetLocked : MonoBehaviour
 
     public void Locked()
     {
-        Debug.Log("locked");
-        inputField.SetActive(true);
+        
+        if(unlocked)
+        {
+            Selected();
+        }
+        else
+        {
+            Debug.Log("locked");
+            inputField.SetActive(true);
+        }
     }
 
     public void Unlocked()
     {
         Debug.Log("unlocked");
+        unlocked = true;
+        Selected();
+        inputField.SetActive(false);
     }    
     
 }

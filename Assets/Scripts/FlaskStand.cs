@@ -7,6 +7,7 @@ public class FlaskStand : Puzzle
     public Flask[] flasks;
     public float[] flaskTargets;
     public float pourAmount = 15;
+    public GameObject paper;
 
     // Start is called before the first frame update
     void Start()
@@ -74,14 +75,19 @@ public class FlaskStand : Puzzle
 
     void checkFlask()
     {
+        bool solved = true;
         for(int i = 0; i < flasks.Length; i++)
         {
             if(flasks[i].targetValue != flaskTargets[i])
             {
-                break;
+                solved = false;
             }
         }
-        Debug.Log("correct");
-        //FindObjectOfType<GameHandler>().ObjectTriggered(this);
+        if(solved)
+        {
+            Debug.Log("correct");
+            paper.SetActive(true);
+            //FindObjectOfType<GameHandler>().ObjectTriggered(this);
+        }
     }
 }

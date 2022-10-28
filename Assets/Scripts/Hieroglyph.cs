@@ -6,14 +6,18 @@ using UnityEngine.UI;
 public class Hieroglyph : MonoBehaviour
 {
     public string[] hieroglyphics;
-    public string[] answer;
     int index = 0;
     public Text text;
 
+    public bool active = true;
     public void Selected()
     {
-        index = (index + 1) % hieroglyphics.Length;
-        text.text = hieroglyphics[index];
+        if (active)
+        {
+            index = (index + 1) % hieroglyphics.Length;
+            text.text = hieroglyphics[index];
+            FindObjectOfType<HieroglyphPuzzle>().GlyphChanged();
+        }   
     }
 
 }

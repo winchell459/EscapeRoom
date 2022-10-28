@@ -25,9 +25,20 @@ public class Grabber : MonoBehaviour
                         holdingObject = hit.transform;
                         holdingObject.position = pointer.forward * holdingDistance + pointer.position;
                         holdingObject.parent = pointer;
-                        Destroy(holdingObject.GetComponent<Rigidbody>());
-                        item = holdingObject.gameObject;
-                        Debug.Log(item);
+                        
+                        if (holdingObject.name != "key"){
+                            
+                            Destroy(holdingObject.GetComponent<Rigidbody>());
+                        }
+                        else
+                        {
+                            item = holdingObject.gameObject;
+                            holdingObject = null;
+                            Destroy(item.GetComponent<BoxCollider>());
+                            Debug.Log(item);
+                        }
+                        
+                        
                     }
                     else if (hit.transform.CompareTag("Book"))
                     {
@@ -61,7 +72,11 @@ public class Grabber : MonoBehaviour
                     }
                     else if (hit.transform.CompareTag("Door"))
                     {
-                        Debug.Log("Locked");
+                        if(item && item.name == "key")
+                        {
+                            hit.transform.gameObject.SendMessage("Unlock");
+                            Destroy(item);
+                        }
                     }
                 }
             }
@@ -82,13 +97,16 @@ public class Grabber : MonoBehaviour
                 **/
                 if(item.name == "key")
                 {
+                    //Debug.Log("key door");
+                    Destroy(item.GetComponent<BoxCollider>());
                     RaycastHit hitt;
                     if (Physics.Raycast(pointer.position, pointer.forward, out hitt, reachDistance))
                     {
                         if (hitt.transform.CompareTag("Door"))
                         {
                             Debug.Log("key door");
-                            Destroy(holdingObject.GetComponent<Rigidbody>());
+                            Destroy(item);
+                            hitt.transform.gameObject.SendMessage("Unlock");
                         }
                     }
                 }

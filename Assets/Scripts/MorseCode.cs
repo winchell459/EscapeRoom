@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class MorseCode : InputText
 {
-    public AudioSource audio;
+    public AudioSource morse;
 
     public void AudioButton()
     {
-        audio.Play();
+        morse.Play();
+        Debug.Log("audio button");
     }
 }

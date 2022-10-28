@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Grabber : MonoBehaviour
 {
-
-    public Transform pointer;   
+    public Transform pointer;
     public float reachDistance = 5;
     public float holdingDistance = 2;
     private Transform holdingObject;
@@ -13,12 +12,12 @@ public class Grabber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if(holdingObject == null)
+            if (holdingObject == null)
             {
                 RaycastHit hit;
-                if(Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
+                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
                 {
                     if (hit.transform.CompareTag("Grabable"))
                     {
@@ -27,41 +26,34 @@ public class Grabber : MonoBehaviour
                         holdingObject.parent = pointer;
                         Destroy(holdingObject.GetComponent<Rigidbody>());
                     }
-
                     else if (hit.transform.CompareTag("Book"))
                     {
                         if (FindObjectOfType<BookShelf>().BookSelected(hit.transform.gameObject))
-                        {
                             holdingObject = hit.transform;
-                        }
-
                     }
-                    else if (hit.transform.GetComponent<UnityEngine.UI.InputField>())
+                    else if (hit.transform.CompareTag("Statue"))
                     {
-                        Debug.Log("InputField found");
-                        hit.transform.GetComponent<UnityEngine.UI.InputField>().Select();
+                        hit.transform.gameObject.SendMessage("Selected");
                     }
-
-                    else if (hit.transform.CompareTag("Button"))
+                    else if (hit.transform.CompareTag("Selectable"))
                     {
-                        Debug.Log("Button found");
-                        hit.transform.GetComponent<UnityEngine.UI.Button>().Select();
-                        hit.transform.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+                        hit.transform.gameObject.SendMessage("Selected");
                     }
                 }
-
             }
             else
             {
-                if(holdingObject.CompareTag("Grabable"))
+                if (holdingObject.CompareTag("Grabable"))
                 {
                     holdingObject.parent = null;
                     holdingObject.gameObject.AddComponent<Rigidbody>();
                 }
                 //stop bookshelf selection mode
-                
+
                 holdingObject = null;
             }
         }
     }
+
+
 }

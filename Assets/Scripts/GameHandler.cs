@@ -35,6 +35,7 @@ public class GameHandler : MonoBehaviour
 
     private void LevelComplete()
     {
+        Debug.Log("hi");
         SceneUtility.LoadNextScene();
     }
 

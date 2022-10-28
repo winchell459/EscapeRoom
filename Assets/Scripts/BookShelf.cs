@@ -14,6 +14,7 @@ public class BookShelf : Puzzle
 
     private GameObject selectedBook;
     private Shelf selectedShelf;
+    public bool fixedBooks;
 
     public bool BookSelected(GameObject book)
     {
@@ -93,14 +94,24 @@ public class BookShelf : Puzzle
                 b2 = book.transform;
             }
 
-            float w1 = b1.transform.lossyScale.x;
-            float w2 = b2.transform.lossyScale.x;
-            float x0 = b1.transform.position.x - w1 / 2;
+            if (fixedBooks)
+            {
+                float x1 = b1.transform.position.x;
+                b1.transform.position = new Vector3(b2.transform.position.x, b1.transform.position.y, b1.transform.position.z);
+                b2.transform.position = new Vector3(x1, b2.transform.position.y, b2.transform.position.z);
+                
+            }
+            else
+            {
+                float w1 = b1.transform.lossyScale.x;
+                float w2 = b2.transform.lossyScale.x;
+                float x0 = b1.transform.position.x - w1 / 2;
 
-            b2.transform.position = new Vector3(x0 + w2 / 2, b2.transform.position.y, b2.transform.position.z);
+                b2.transform.position = new Vector3(x0 + w2 / 2, b2.transform.position.y, b2.transform.position.z);
 
-            //check for book between
-            b1.transform.position = new Vector3(x0 + w2 + w1 / 2, b1.transform.position.y, b1.transform.position.z);
+                //check for book between
+                b1.transform.position = new Vector3(x0 + w2 + w1 / 2, b1.transform.position.y, b1.transform.position.z);
+            }
 
             //swap book in the shelf.Books
 

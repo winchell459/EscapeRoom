@@ -8,6 +8,9 @@ TagManager:
   - Book
   - Fire
   - Button
+  - Flask
+  - Statue
+  - Selectable
   layers:
   - Default
   - TransparentFX

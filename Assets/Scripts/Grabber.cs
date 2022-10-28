@@ -8,6 +8,7 @@ public class Grabber : MonoBehaviour
     public float reachDistance = 5;
     public float holdingDistance = 2;
     private Transform holdingObject;
+    private GameObject item;
 
     // Update is called once per frame
     void Update()
@@ -25,6 +26,8 @@ public class Grabber : MonoBehaviour
                         holdingObject.position = pointer.forward * holdingDistance + pointer.position;
                         holdingObject.parent = pointer;
                         Destroy(holdingObject.GetComponent<Rigidbody>());
+                        item = holdingObject.gameObject;
+                        Debug.Log(item);
                     }
                     else if (hit.transform.CompareTag("Book"))
                     {
@@ -56,16 +59,50 @@ public class Grabber : MonoBehaviour
                     {
                         hit.transform.gameObject.SendMessage("Locked");
                     }
+                    else if (hit.transform.CompareTag("Door"))
+                    {
+                        Debug.Log("Locked");
+                    }
                 }
             }
             else
             {
-                if (holdingObject.CompareTag("Grabable"))
+                /**
+                RaycastHit hit;
+                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
+                {
+                    if (hit.transform.CompareTag("Door"))
+                    {
+                        if (item.name == "key")
+                        {
+                            Debug.Log("key door");
+                        }
+                    }
+                }
+                **/
+                if(item.name == "key")
+                {
+                    RaycastHit hitt;
+                    if (Physics.Raycast(pointer.position, pointer.forward, out hitt, reachDistance))
+                    {
+                        if (hitt.transform.CompareTag("Door"))
+                        {
+                            Debug.Log("key door");
+                            Destroy(holdingObject.GetComponent<Rigidbody>());
+                        }
+                    }
+                }
+                       
+
+                else if (holdingObject.CompareTag("Grabable"))
                 {
                     holdingObject.parent = null;
                     holdingObject.gameObject.AddComponent<Rigidbody>();
                 }
                 //stop bookshelf selection mode
+
+                
+                
 
                 holdingObject = null;
             }

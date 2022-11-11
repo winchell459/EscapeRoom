@@ -48,4 +48,14 @@ public class GameHandler : MonoBehaviour
             }
         }
     }
+
+    public string sceneCompletedName = "ScienceRoom";
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerPrefs.SetString(sceneCompletedName, "complete");
+            GameComplete();
+        }
+    }
 }

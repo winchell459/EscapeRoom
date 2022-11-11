@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene 2.unity
     guid: 49ee232d58d992341b8d447dc4935859
   - enabled: 1
-    path: Assets/Scenes/Scene 3.unity
+    path: Assets/Scenes/EgyptianRoom.unity
     guid: b32d87dbb8b735c48b62618a36e8d541
   m_configObjects: {}

@@ -11,6 +11,9 @@ TagManager:
   - Flask
   - Statue
   - Selectable
+  - InputField
+  - Locked
+  - Door
   layers:
   - Default
   - TransparentFX

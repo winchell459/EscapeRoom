@@ -9,12 +9,12 @@ public class Vase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        hiddenObject.SetActive(false);
+        
         if (collision.gameObject.GetComponent<Hammer>())
         {
             vaseExplosion.SetActive(true);
             vaseExplosion.transform.parent = null;
-            hiddenObject.SetActive(true);
+            if(hiddenObject) hiddenObject.SetActive(true);
 
             Destroy(gameObject);
 

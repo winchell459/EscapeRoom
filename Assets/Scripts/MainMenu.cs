@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    public string gameSceneName = "SampleScene";
-    public void StartButton()
+    public string scienceRoom = "ScienceRoom", egyptianRoom = "EgyptianRoom";
+    public UnityEngine.UI.Button egyptianRoomButton;
+
+    public void ScienceRoomButton()
     {
-        SceneUtility.LoadScene(gameSceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scienceRoom);
+    }
+
+    public void EgyptianRoomButton()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(egyptianRoom);
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        if(PlayerPrefs.GetString("ScienceRoom", "Incomplete") == "complete")
+        {
+            egyptianRoomButton.interactable = true;
+        }
     }
 }

@@ -27,4 +27,11 @@ public class MainMenu : MonoBehaviour
             egyptianRoomButton.interactable = true;
         }
     }
+
+    public void ResetGameButton()
+    {
+        PlayerPrefs.SetString(scienceRoom, "incomplete");
+        PlayerPrefs.SetString(egyptianRoom, "incomplete");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 }

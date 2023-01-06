@@ -4,40 +4,24 @@ using UnityEngine;
 
 public class DoorHinge : MonoBehaviour
 {
-    public float openAngle, closedAngle;
-    [SerializeField] bool open;
-    public float velocity = 2;
-    private float currentAngle;
-    public Transform hinge;
+    public Animator anim;
+    public float nearbyRange = 2;
+    private Transform player;
 
-    private void Start()
+    private void Update()
     {
-        currentAngle = hinge.localEulerAngles.y;
+        if (!player)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }else if(Vector3.Distance(player.position, transform.position) < nearbyRange)
+        {
+            anim.SetBool("character_nearby", true);
+        }
+        else
+        {
+            anim.SetBool("character_nearby", false);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (open && Mathf.Abs(openAngle - currentAngle) >= velocity * Time.deltaTime)
-        {
-            
-            currentAngle += Mathf.Sign(openAngle - currentAngle) * velocity * Time.deltaTime;
-            Debug.Log($"Opening {currentAngle}");
-        }
-        else if (open)
-        {
-            Debug.Log("Open");
-            currentAngle = openAngle;
-        }else if (!open && Mathf.Abs(closedAngle - currentAngle) >= velocity * Time.deltaTime)
-        {
-            Debug.Log("Closing");
-            currentAngle += Mathf.Sign(closedAngle - currentAngle) * velocity * Time.deltaTime;
-        }
-        else if (!open)
-        {
-            Debug.Log("Closed");
-            currentAngle = closedAngle;
-        }
-        hinge.localEulerAngles = new Vector3(hinge.localEulerAngles.x,currentAngle, hinge.localEulerAngles.z);
-    }
+    
 }

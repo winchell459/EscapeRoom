@@ -13,6 +13,21 @@ public class Grabber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            Debug.Log("MouseButton(0)");
+            RaycastHit hit;
+            if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
+            {
+                if (hit.transform.CompareTag("Clock"))
+                {
+                    Vector3 pivot = hit.transform.parent.position;
+                    float angle = Vector3.Angle(pivot, hit.point);
+                    hit.transform.parent.localEulerAngles = new Vector3(0, angle, 0);
+                    Debug.Log(angle);
+                }
+            }
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (holdingObject == null)

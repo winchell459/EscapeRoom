@@ -6,7 +6,7 @@ public class GameHandler : MonoBehaviour
 {
     public Puzzle[] objectTriggers;
     private bool[] triggeredObjects;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class GameHandler : MonoBehaviour
 
     private bool AllObjectsTriggered()
     {
-        foreach(bool triggered in triggeredObjects) 
+        foreach (bool triggered in triggeredObjects)
         {
             if (triggered == false) return false;
         }
@@ -40,12 +40,22 @@ public class GameHandler : MonoBehaviour
 
     public void ObjectTriggered(Puzzle objectTrigger)
     {
-        for(int i = 0; i < objectTriggers.Length; i += 1)
+        for (int i = 0; i < objectTriggers.Length; i += 1)
         {
             if (objectTriggers[i] == objectTrigger)
             {
                 triggeredObjects[i] = true;
             }
+        }
+    }
+
+    public string sceneCompletedName = "ScienceRoom";
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerPrefs.SetString(sceneCompletedName, "complete");
+            GameComplete();
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44191307, g: 0.568984, b: 0.64554244, a: 1}
+  m_IndirectSpecularColor: {r: 0.44190785, g: 0.56898135, b: 0.6455429, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -155,6 +155,7 @@ MonoBehaviour:
   objectTriggers:
   - {fileID: 884397042}
   - {fileID: 371828688}
+  sceneCompletedName: ScienceRoom
 --- !u!4 &36441577
 Transform:
   m_ObjectHideFlags: 0
@@ -200,7 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -459,7 +459,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectTriggers: []
   triggerObject: {fileID: 689581760}
+  completeObject: {fileID: 0}
 --- !u!65 &371828689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -959,7 +961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectTriggers: []
   triggerObject: {fileID: 886109967}
+  completeObject: {fileID: 0}
 --- !u!65 &884397043
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -10,6 +10,11 @@ TagManager:
   - InputField
   - Button
   - Flask
+  - Statue
+  - Locked
+  - Door
+  - Computer
+  - Selectable
   layers:
   - Default
   - TransparentFX

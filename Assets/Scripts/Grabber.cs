@@ -80,6 +80,10 @@ public class Grabber : MonoBehaviour
                             Destroy(item);
                         }
                     }
+                    else if (hit.transform.CompareTag("Computer"))
+                    {
+                        Debug.Log("computer");
+                    }
                 }
             }
             else

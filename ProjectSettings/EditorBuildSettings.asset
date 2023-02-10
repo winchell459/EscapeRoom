@@ -14,13 +14,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scene 2.unity
     guid: 49ee232d58d992341b8d447dc4935859
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 4a6914654f1debe489f4cc756cd162dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ScienceRoom.unity
     guid: 330830b2502246b46bcb32d04458e78d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/EgyptianRoom.unity
     guid: b32d87dbb8b735c48b62618a36e8d541
+  - enabled: 1
+    path: Assets/Scenes/Netcode Testing.unity
+    guid: 8218d550a641b1a4889287d7459a55ad
   m_configObjects: {}

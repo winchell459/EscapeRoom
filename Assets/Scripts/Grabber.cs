@@ -22,6 +22,7 @@ public class Grabber : MonoBehaviour
                 {
                     if (hit.transform.CompareTag("Grabable"))
                     {
+                        Debug.Log("GRAB");
                         holdingObject = hit.transform;
                         holdingObject.position = pointer.forward * holdingDistance + pointer.position;
                         holdingObject.parent = pointer;

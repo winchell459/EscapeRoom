@@ -9,6 +9,7 @@ public class Grabber : MonoBehaviour
     public float holdingDistance = 2;
     private Transform holdingObject;
     private GameObject item;
+    public EscapeNetwork.EscapeNetworkPlayer networkPlayer;
 
     // Update is called once per frame
     void Update()
@@ -25,6 +26,7 @@ public class Grabber : MonoBehaviour
                         holdingObject = hit.transform;
                         holdingObject.position = pointer.forward * holdingDistance + pointer.position;
                         holdingObject.parent = pointer;
+                        if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(holdingObject.gameObject);
                         if (holdingObject.name != "key")
                         {
                             Destroy(holdingObject.GetComponent<Rigidbody>());

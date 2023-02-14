@@ -189,7 +189,10 @@ MonoBehaviour:
   localPlayerPrefab: {fileID: 9110412089869617024, guid: 1f0de1814fd85a84690147bef0cc1f8c, type: 3}
   playerBody: {fileID: 6784384263926820961}
   playerHead: {fileID: 7282286989481655523}
-  speed: 5
+  HoldingObjectID:
+    m_InternalValue: 0
+  holdingObjectID: 0
+  holdingObject: {fileID: 0}
 --- !u!1 &6187699671837272295
 GameObject:
   m_ObjectHideFlags: 0

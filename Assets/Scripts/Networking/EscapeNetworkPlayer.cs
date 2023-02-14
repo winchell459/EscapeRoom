@@ -15,6 +15,12 @@ namespace EscapeNetwork
         public GameObject localPlayerPrefab;
         [SerializeField] private Transform playerBody, playerHead;
 
+        public NetworkVariable<int> HoldingObjectID = new NetworkVariable<int>();
+        public int holdingObjectID = 0; //0 not holding object
+        private EscapeNetworkObjects networkObjects;
+        public Transform holdingObject;
+        
+
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
@@ -22,7 +28,10 @@ namespace EscapeNetwork
                 playerBody.gameObject.SetActive(false);
                 playerBody = Instantiate(localPlayerPrefab, transform.position + Vector3.up * 2, Quaternion.identity).transform;
                 playerHead = playerBody.GetChild(0);
+                FindObjectOfType<Grabber>().networkPlayer = this;
             }
+            networkObjects = FindObjectOfType<EscapeNetworkObjects>();
+            
         }
 
         [ServerRpc]
@@ -32,6 +41,15 @@ namespace EscapeNetwork
             Rotation.Value = rot;
             HeadPosition.Value = headPos;
             HeadRotation.Value = headRot;
+        }
+        [ServerRpc]
+        void SubmitGrabberObjectClickServerRpc(int objectID)
+        {
+            HoldingObjectID.Value = objectID;
+        }
+        public void SubmitGrabberObjectClick(GameObject clickedObject)
+        {
+            SubmitGrabberObjectClickServerRpc(networkObjects.GetNetworkObjectID(clickedObject));
         }
 
         // Update is called once per frame
@@ -47,6 +65,16 @@ namespace EscapeNetwork
                 playerBody.localEulerAngles = Rotation.Value;
                 playerHead.localPosition = HeadPosition.Value;
                 playerHead.localEulerAngles = HeadRotation.Value;
+
+                if(HoldingObjectID.Value != holdingObjectID)
+                {
+
+                    holdingObject = networkObjects.GetNetworkObject(HoldingObjectID.Value).transform;
+                    holdingObject.position = playerHead.forward * FindObjectOfType<Grabber>().holdingDistance + playerHead.position;
+                    holdingObject.parent = playerHead;
+                    holdingObjectID = HoldingObjectID.Value;
+                    Destroy(holdingObject.GetComponent<Rigidbody>());
+                }
             }
         }
     }

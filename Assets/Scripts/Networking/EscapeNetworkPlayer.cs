@@ -15,6 +15,13 @@ namespace EscapeNetwork
         public GameObject localPlayerPrefab;
         [SerializeField] private Transform playerBody, playerHead;
 
+        public NetworkVariable<int> HoldingObjectID = new NetworkVariable<int>();
+        public int holdingObjectID = 0; //0 = not holding object
+        private EscapeNetworkObjects networkObjects;
+
+        public Transform holdingObject;
+        public GameObject item;
+
         public override void OnNetworkSpawn()
         {
             if(IsOwner)
@@ -22,11 +29,18 @@ namespace EscapeNetwork
                 playerBody.gameObject.SetActive(false);
                 playerBody = Instantiate(localPlayerPrefab, transform.position + Vector3.up * 2, Quaternion.identity).transform;
                 playerHead = playerBody.GetChild(0);
+                FindObjectOfType<Grabber>().networkPlayer = this;
             }
+            networkObjects = FindObjectOfType<EscapeNetworkObjects>();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
         }
 
         [ServerRpc]
-        void SubmitPositionServerRPC(Vector3 pos, Vector3 rot, Vector3 headPos, Vector3 headRot)
+        void SubmitPositionServerRpc(Vector3 pos, Vector3 rot, Vector3 headPos, Vector3 headRot)
         {
             Position.Value = pos;
             Rotation.Value = rot;
@@ -34,12 +48,23 @@ namespace EscapeNetwork
             HeadRotation.Value = headRot;
         }
 
+        [ServerRpc]
+        void SubmitGrabberObjectClickedServerRpc(int objectID)
+        {
+            HoldingObjectID.Value = objectID;
+        }
+
+        public void SubmitGrabberObjectClick(GameObject clickedObject)
+        {
+            SubmitGrabberObjectClickedServerRpc(networkObjects.GetNetworkObjectID(clickedObject));
+        }
+
         // Update is called once per frame
         void Update()
         {
             if(IsOwner)
             {
-                SubmitPositionServerRPC(playerBody.position, playerBody.localEulerAngles, playerHead.localPosition, playerHead.localEulerAngles);
+                SubmitPositionServerRpc(playerBody.position, playerBody.localEulerAngles, playerHead.localPosition, playerHead.localEulerAngles);
             }
             else
             {
@@ -47,6 +72,23 @@ namespace EscapeNetwork
                 playerBody.localEulerAngles = Rotation.Value;
                 playerHead.localPosition = HeadPosition.Value;
                 playerHead.localEulerAngles = HeadRotation.Value;
+
+                if(HoldingObjectID.Value != holdingObjectID)
+                {
+                    if(holdingObject == null)
+                    {
+                        GameObject clicked = networkObjects.GetNetworkObject(HoldingObjectID.Value);
+                        if (networkObjects.GetNetworkObject(HoldingObjectID.Value))
+                        {
+                            Grabber.ObjectClicked(clicked.transform, ref holdingObject, ref item, playerHead);
+                        }
+                    }
+                    else
+                    {
+                        Grabber.AlreadyHoldingObject(ref holdingObject, ref item, playerHead);
+                    }
+                    holdingObjectID = HoldingObjectID.Value;
+                }
             }
         }
     }

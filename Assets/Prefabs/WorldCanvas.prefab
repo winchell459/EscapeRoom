@@ -601,6 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectTriggers: []
   inputField: {fileID: 2898111528410467622}
   inputText: {fileID: 2898111528292905328}
   button: {fileID: 2898111528665382536}
@@ -944,7 +945,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2898111529852056395
 MonoBehaviour:
   m_ObjectHideFlags: 0

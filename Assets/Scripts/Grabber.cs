@@ -21,117 +21,110 @@ public class Grabber : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
                 {
-                    if (hit.transform.CompareTag("Grabable"))
-                    {
-                        holdingObject = hit.transform;
-                        holdingObject.position = pointer.forward * holdingDistance + pointer.position;
-                        holdingObject.parent = pointer;
-                        if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(holdingObject.gameObject);
-                        if (holdingObject.name != "key")
-                        {
-                            Destroy(holdingObject.GetComponent<Rigidbody>());
-                        }
-                        else
-                        {
-                            item = holdingObject.gameObject;
-                            holdingObject = null;
-                            Destroy(item.GetComponent<BoxCollider>());
-                            Debug.Log(item);
-                        }
-                        
-                    }
-                    else if (hit.transform.CompareTag("Book"))
-                    {
-                        if (FindObjectOfType<BookShelf>().BookSelected(hit.transform.gameObject))
-                            holdingObject = hit.transform;
-                    }
-                    else if (hit.transform.CompareTag("InputField"))
-                    {
-                        Debug.Log("InputField Found");
-                        hit.transform.GetComponent<UnityEngine.UI.InputField>().Select();
-                    }
-
-                    else if (hit.transform.CompareTag("Button"))
-                    {
-                        Debug.Log("Button Found");
-                        hit.transform.GetComponent<UnityEngine.UI.Button>().Select();
-                        hit.transform.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
-                    }
-                    else if (hit.transform.CompareTag("Flask"))
-                    {
-                        if (FindObjectOfType<FlaskStand>().FlaskSelected(hit.transform.gameObject))
-                            holdingObject = hit.transform;
-                    }
-                    else if (hit.transform.CompareTag("Statue"))
-                    {
-                        hit.transform.gameObject.SendMessage("Selected");
-                    }
-                    else if (hit.transform.CompareTag("Selectable"))
-                    {
-                        hit.transform.gameObject.SendMessage("Selected");
-                    }
-                    else if (hit.transform.CompareTag("Locked"))
-                    {
-                        hit.transform.gameObject.SendMessage("Locked");
-                    }
-                    else if (hit.transform.CompareTag("Door"))
-                    {
-                        if(item && item.name == "key")
-                        {
-                            hit.transform.gameObject.SendMessage("Unlock");
-                            Destroy(item);
-                        }
-                    }else if (hit.transform.CompareTag("Clock"))
-                    {
-                        FindObjectOfType<Clock>().HandClicked(hit.transform.gameObject);
-                    }
+                    if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(hit.transform.gameObject);
+                    ObjectClicked(hit.transform, ref holdingObject, ref item, pointer,networkPlayer);
                 }
             }
             else
             {
-                
-                if (item && item.name == "key")
-                {
-                    Debug.Log("key door");
-                    Destroy(item.GetComponent<BoxCollider>());
-                    RaycastHit hitt;
-                    if (Physics.Raycast(pointer.position, pointer.forward, out hitt, reachDistance))
-                    {
-                        if (hitt.transform.CompareTag("Door"))
-                        {
-                            Debug.Log("key door");
-                            Destroy(item);
-                            hitt.transform.gameObject.SendMessage("Unlock");
-                        }
-                    }
-                }
-
-
-                else if (holdingObject.CompareTag("Grabable"))
-                {
-                    holdingObject.parent = null;
-                    holdingObject.gameObject.AddComponent<Rigidbody>();
-                }
-                //stop bookshelf selection mode
-
-
-
-
-                holdingObject = null;
+                if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(null);
+                UseHoldingObject(ref holdingObject, ref item,pointer);
             }
-        }else if (Input.GetMouseButton(0) && holdingObject && holdingObject.CompareTag("Clock"))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
-            {
-
-            }
-        }
-        else if (Input.GetMouseButtonUp(0) && holdingObject && holdingObject.CompareTag("Clock"))
-        {
-            FindObjectOfType<Clock>().manualSet = false;
         }
     }
+    public static void UseHoldingObject(ref Transform holdingObject, ref GameObject item, Transform pointer)
+    {
+        if (item && item.name == "key")
+        {
+            Debug.Log("key door");
+            Destroy(item.GetComponent<BoxCollider>());
+            RaycastHit hitt;
+            if (Physics.Raycast(pointer.position, pointer.forward, out hitt, FindObjectOfType<Grabber>().reachDistance))
+            {
+                if (hitt.transform.CompareTag("Door"))
+                {
+                    Debug.Log("key door");
+                    Destroy(item);
+                    hitt.transform.gameObject.SendMessage("Unlock");
+                }
+            }
+        }
+        else if (holdingObject.CompareTag("Grabable"))
+        {
+            holdingObject.parent = null;
+            holdingObject.gameObject.AddComponent<Rigidbody>();
+        }
+ 
+        holdingObject = null;
+    }
 
+    public static void ObjectClicked(Transform clicked, ref Transform holdingObject, ref GameObject item, Transform pointer, EscapeNetwork.EscapeNetworkPlayer networkPlayer)
+    {
+        if (clicked.CompareTag("Grabable"))
+        {
+            holdingObject = clicked;
+            holdingObject.position = pointer.forward * FindObjectOfType<Grabber>().holdingDistance + pointer.position;
+            holdingObject.parent = pointer;
+            //if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(holdingObject.gameObject);
+            if (holdingObject.name != "key")
+            {
+                Destroy(holdingObject.GetComponent<Rigidbody>());
+            }
+            else
+            {
+                item = holdingObject.gameObject;
+                holdingObject = null;
+                Destroy(item.GetComponent<BoxCollider>());
+                Debug.Log(item);
+            }
+
+        }
+        else if (clicked.CompareTag("Book"))
+        {
+            if (FindObjectOfType<BookShelf>().BookSelected(clicked.gameObject))
+                holdingObject = clicked;
+        }
+        else if (clicked.CompareTag("InputField"))
+        {
+            Debug.Log("InputField Found");
+            clicked.GetComponent<UnityEngine.UI.InputField>().Select();
+        }
+
+        else if (clicked.CompareTag("Button"))
+        {
+            Debug.Log("Button Found");
+            clicked.GetComponent<UnityEngine.UI.Button>().Select();
+            clicked.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+        }
+        else if (clicked.CompareTag("Flask"))
+        {
+            if (FindObjectOfType<FlaskStand>().FlaskSelected(clicked.gameObject))
+                holdingObject = clicked;
+        }
+        else if (clicked.CompareTag("Statue"))
+        {
+            clicked.gameObject.SendMessage("Selected");
+        }
+        else if (clicked.CompareTag("Selectable"))
+        {
+            clicked.gameObject.SendMessage("Selected");
+        }
+        else if (clicked.CompareTag("Locked"))
+        {
+            clicked.gameObject.SendMessage("Locked");
+        }
+        else if (clicked.CompareTag("Door"))
+        {
+            if (item && item.name == "key")
+            {
+                clicked.gameObject.SendMessage("Unlock");
+                Destroy(item);
+            }
+        }
+        else if (clicked.CompareTag("Clock"))
+        {
+            FindObjectOfType<Clock>().HandClicked(clicked.gameObject);
+        }
+    }
 
 }

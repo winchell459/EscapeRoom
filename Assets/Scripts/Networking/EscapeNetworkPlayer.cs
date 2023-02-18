@@ -19,6 +19,8 @@ namespace EscapeNetwork
         public int holdingObjectID = 0; //0 not holding object
         private EscapeNetworkObjects networkObjects;
         public Transform holdingObject;
+        public GameObject item;
+
         
 
         public override void OnNetworkSpawn()
@@ -68,12 +70,20 @@ namespace EscapeNetwork
 
                 if(HoldingObjectID.Value != holdingObjectID)
                 {
-
-                    holdingObject = networkObjects.GetNetworkObject(HoldingObjectID.Value).transform;
-                    holdingObject.position = playerHead.forward * FindObjectOfType<Grabber>().holdingDistance + playerHead.position;
-                    holdingObject.parent = playerHead;
+                    if (holdingObject == null)
+                    {
+                        if(networkObjects.GetNetworkObject(HoldingObjectID.Value)) Grabber.ObjectClicked(networkObjects.GetNetworkObject(HoldingObjectID.Value).transform, ref holdingObject, ref item, playerHead, null);
+                    }
+                    else
+                    {
+                        Grabber.UseHoldingObject(ref holdingObject, ref item, playerHead);
+                    }
+                    //holdingObject = networkObjects.GetNetworkObject(HoldingObjectID.Value).transform;
+                    //holdingObject.position = playerHead.forward * FindObjectOfType<Grabber>().holdingDistance + playerHead.position;
+                    //holdingObject.parent = playerHead;
+                    //holdingObjectID = HoldingObjectID.Value;
+                    //Destroy(holdingObject.GetComponent<Rigidbody>());
                     holdingObjectID = HoldingObjectID.Value;
-                    Destroy(holdingObject.GetComponent<Rigidbody>());
                 }
             }
         }

@@ -4,10 +4,40 @@ using UnityEngine;
 
 public class EscapeNetworkObjects : MonoBehaviour
 {
-    public GameObject[] networkObjects;
+    public List<GameObject> networkObjects;
+    public List<UnityEngine.UI.InputField> networkInputFields;
+
+    private void Start()
+    {
+        AddNetworkObjects("Grabable");
+        //AddNetworkObjects("Book");
+        if (FindObjectOfType<BookShelf>())
+        {
+            foreach(GameObject book in FindObjectOfType<BookShelf>().GetBooks())
+            {
+                networkObjects.Add(book);
+            }
+        }
+        AddNetworkObjects("InputField");
+        AddNetworkObjects("Button");
+        AddNetworkObjects("Flask");
+        AddNetworkObjects("Statue");
+        AddNetworkObjects("Locked");
+        AddNetworkObjects("Door");
+        AddNetworkObjects("Clock");
+        
+    }
+
+    private void AddNetworkObjects(string tag)
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag(tag))
+        {
+            networkObjects.Add(go);
+        }
+    }
     public GameObject GetNetworkObject(int objectID)
     {
-        if(objectID > 0 && objectID <= networkObjects.Length)
+        if(objectID > 0 && objectID <= networkObjects.Count)
         {
             return networkObjects[objectID-1];
         }
@@ -18,7 +48,7 @@ public class EscapeNetworkObjects : MonoBehaviour
     }
     public int GetNetworkObjectID(GameObject networkObject)
     {
-        for(int i = 0; i < networkObjects.Length; i += 1)
+        for(int i = 0; i < networkObjects.Count; i += 1)
         {
             if (networkObjects[i] == networkObject) return i+1;
         }

@@ -23,4 +23,9 @@ public class InputText : Puzzle
             FindObjectOfType<GameHandler>().ObjectTriggered(this);
         }
     }
+
+    public void OnValueChanged(string value)
+    {
+
+    }
 }

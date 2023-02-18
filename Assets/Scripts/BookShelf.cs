@@ -170,4 +170,17 @@ public class BookShelf : Puzzle
         }
 
     }
+
+    public List<GameObject> GetBooks()
+    {
+        List<GameObject> books = new List<GameObject>();
+        foreach(Shelf shelf in Shelves)
+        {
+            foreach(GameObject book in shelf.books)
+            {
+                books.Add(book);
+            }
+        }
+        return books;
+    }
 }

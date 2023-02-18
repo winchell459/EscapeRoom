@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6784384263926820961}
   - component: {fileID: 3787086529413228832}
   - component: {fileID: 6797318227189225466}
-  - component: {fileID: 3699215866559389912}
-  - component: {fileID: 4258361404083254170}
-  m_Layer: 0
+  - component: {fileID: 1090595278420062323}
+  - component: {fileID: 6435597999919238045}
+  m_Layer: 6
   m_Name: NetworkPlayerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3699215866559389912
+--- !u!136 &1090595278420062323
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &4258361404083254170
+--- !u!54 &6435597999919238045
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5206952804702200890}
   - component: {fileID: 5206952804702200893}
   - component: {fileID: 5206952804702200892}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NetworkPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,6 +193,7 @@ MonoBehaviour:
     m_InternalValue: 0
   holdingObjectID: 0
   holdingObject: {fileID: 0}
+  item: {fileID: 0}
 --- !u!1 &6187699671837272295
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7282286989481655523}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NetworkPlayerHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}

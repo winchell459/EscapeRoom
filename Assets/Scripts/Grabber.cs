@@ -80,23 +80,14 @@ public class Grabber : MonoBehaviour
                             Destroy(item);
                         }
                     }
+                    else if (hit.transform.CompareTag("Clock"))
+                    {
+                        FindObjectOfType<Clock>().HandClicked(hit.transform.gameObject);
+                    }
                 }
             }
             else
             {
-                /**
-                RaycastHit hit;
-                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
-                {
-                    if (hit.transform.CompareTag("Door"))
-                    {
-                        if (item.name == "key")
-                        {
-                            Debug.Log("key door");
-                        }
-                    }
-                }
-                **/
                 if (item && item.name == "key")
                 {
                     Debug.Log("key door");
@@ -126,6 +117,18 @@ public class Grabber : MonoBehaviour
 
                 holdingObject = null;
             }
+        }
+        else if(Input.GetMouseButton(0) && holdingObject && holdingObject.CompareTag("Clock"))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
+            {
+
+            }
+        }
+        else if (Input.GetMouseButtonUp(0) && holdingObject && holdingObject.CompareTag("Clock"))
+        {
+            FindObjectOfType<Clock>().manualSet = false;
         }
     }
 

@@ -51,6 +51,23 @@ public class Grabber : MonoBehaviour
             }
         }
 
+        if (item && item.name == "watering can")
+        {
+            Debug.Log("watering can let go");
+            Destroy(item.GetComponent<BoxCollider>());
+            RaycastHit hitt;
+            if (Physics.Raycast(pointer.position, pointer.forward, out hitt, FindObjectOfType<Grabber>().reachDistance))
+            {
+
+                if (hitt.transform.CompareTag("Plant"))
+                {
+                    Destroy(item);
+                    Debug.Log("plant hit");
+                    pointer.gameObject.SendMessage("Water");
+                }
+            }
+        }
+
         else if (holdingObject.CompareTag("Grabable"))
         {
             holdingObject.parent = null;
@@ -65,12 +82,13 @@ public class Grabber : MonoBehaviour
     {
         if (clicked.CompareTag("Grabable"))
         {
-            Debug.Log("GRAB");
             holdingObject = clicked;
-            holdingObject.position = pointer.forward * FindObjectOfType<Grabber>().reachDistance + pointer.position;
+            holdingObject.position = pointer.forward * FindObjectOfType<Grabber>().holdingDistance + pointer.position;
             holdingObject.parent = pointer;
+            item = holdingObject.gameObject;
             if (holdingObject.name != "key")
             {
+                Debug.Log(item);
                 Destroy(holdingObject.GetComponent<Rigidbody>());
             }
             else

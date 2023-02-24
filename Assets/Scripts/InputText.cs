@@ -23,4 +23,17 @@ public class InputText : Puzzle
             FindObjectOfType<GameHandler>().ObjectTriggered(this);
         }
     }
+
+    public void OnValueChanged(string value)
+    {
+        FindObjectOfType<EscapeNetworkObjects>().OnTextInputValueChanged(value, this);
+    }
+    public string GetValue()
+    {
+        return inputText.text;
+    }
+    public void SetValue(string value)
+    {
+        inputText.text = value;
+    }
 }

@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class EscapeNetworkObjects : MonoBehaviour
+public class EscapeNetworkObjects : NetworkBehaviour
 {
     public List<GameObject> networkObjects;
+    public List<InputText> networkInputTexts;
+    public List<NetworkVariable<string>> networkVariables = new List<NetworkVariable<string>>();
 
     // Start is called before the first frame update
     void Start()
     {
+        for(int i = 0; i < networkInputTexts.Count; i += 1)
+        {
+            networkVariables.Add(new NetworkVariable<string>());
+        }
         //add books to the networkObjects
         if (FindObjectOfType<BookShelf>())
         {
@@ -39,4 +46,34 @@ public class EscapeNetworkObjects : MonoBehaviour
         }
         return 0;
     }
+
+    public void OnTextInputValueChanged(string value, InputText inputText)
+    {
+        int index = -1;
+        for (int i = 0; i < networkInputTexts.Count; i += 1)
+        {
+            if (networkInputTexts[i] == inputText) index = i;
+        }
+        if(index > 0)
+        {
+            SubmitInputTextValueChangedServerRpc(value, index);
+        }
+    }
+    [ServerRpc]
+    private void SubmitInputTextValueChangedServerRpc(string value, int index)
+    {
+        networkVariables[index].Value = value;
+    }
+
+    private void Update()
+    {
+        for(int i = 0; i < networkInputTexts.Count; i += 1)
+        {
+            if(networkInputTexts[i].GetValue() != networkVariables[i].Value)
+            {
+                networkInputTexts[i].SetValue(networkVariables[i].Value);
+            }
+        }
+    }
+
 }

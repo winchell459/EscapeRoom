@@ -15,6 +15,13 @@ namespace EscapeNetwork
         public GameObject localPlayerPrefab;
         [SerializeField] private Transform playerBody, playerHead;
 
+        public NetworkVariable<int> HoldingObjectID = new NetworkVariable<int>();
+        public int holdingOjectID = 0; // 0 = not being holding object
+        private EscapeNetworkObjects networkObjects;
+
+        public Transform holdingObject;
+        public GameObject item;
+
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
@@ -22,7 +29,14 @@ namespace EscapeNetwork
                 playerBody.gameObject.SetActive(false);
                 playerBody = Instantiate(localPlayerPrefab, transform.position + Vector3.up * 2, Quaternion.identity).transform;
                 playerHead = playerBody.GetChild(0);
+                FindObjectOfType<Grabber>().networkPlayer = this;
             }
+            networkObjects = FindObjectOfType<EscapeNetworkObjects>();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
         }
 
         [ServerRpc]
@@ -34,7 +48,16 @@ namespace EscapeNetwork
             HeadRotation.Value = headRot;
         }
 
-        public float speed = 5;
+        [ServerRpc]
+        void SubmitGrabberObjectClickServerRpc(int objectID)
+        {
+            HoldingObjectID.Value = objectID;
+        }
+        public void SubmitGrabberObjectClick(GameObject clickedObject)
+        {
+            SubmitGrabberObjectClickServerRpc(networkObjects.GetNetworkObjectID(clickedObject));
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -48,6 +71,23 @@ namespace EscapeNetwork
                 playerBody.localEulerAngles = Rotation.Value;
                 playerHead.localPosition = HeadPosition.Value;
                 playerHead.localEulerAngles = HeadRotation.Value;
+
+                if(HoldingObjectID.Value != holdingOjectID)
+                {
+                    if(holdingObject == null)
+                    {
+                        GameObject clicked = networkObjects.GetNetworkObject(HoldingObjectID.Value);
+                        if (clicked)
+                        {
+                            Grabber.ObjectClicked(clicked.transform, ref holdingObject, ref item, playerHead);
+                        }
+                    }
+                    else
+                    {
+                        Grabber.AlreadyHoldingObject(ref holdingObject, ref item, playerHead);
+                    }
+                    holdingOjectID = HoldingObjectID.Value;
+                }
             }
         }
     }

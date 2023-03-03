@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Clock : MonoBehaviour {
+public class Clock : Puzzle {
 
 	//-- set start time 00:00
     public int minutes = 0;
@@ -17,6 +17,9 @@ public class Clock : MonoBehaviour {
 	public GameObject pointerSeconds;
     public GameObject pointerMinutes;
     public GameObject pointerHours;
+
+    public GameObject spawnObject;
+    private bool puzzleSolved = false;
     
     //-- time speed factor
     public float clockSpeed = 1.0f;     // 1.0f = realtime, < 1.0f = slower, > 1.0f = faster
@@ -37,6 +40,15 @@ void Start()
 
     void Update()
     {
+        if (!puzzleSolved)
+        {
+            if(minutes == targetMinutes && hour % 12 == targetHour)
+            {
+                puzzleSolved = true;
+                spawnObject.SetActive(true);
+            }
+        }
+        
         if (!manualSet)
         {
             //-- calculate time
@@ -101,6 +113,10 @@ void Start()
             Debug.Log($"Hand Clicked {clickedHand.name}");
             if(clickedHand == pointerMinutes)
             {
+                if(minutes % minuteIncrement != 0)
+                {
+                    minutes = minuteIncrement * (minutes / minuteIncrement);
+                }
                 minutes += minuteIncrement;
                 SetAnglesFromTime();
             }

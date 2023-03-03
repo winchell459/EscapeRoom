@@ -942,6 +942,8 @@ MonoBehaviour:
   networkInputTexts:
   - {fileID: 939395020}
   networkVariables: []
+  networkVariable:
+    m_InternalValue: 
 --- !u!114 &1062190797
 MonoBehaviour:
   m_ObjectHideFlags: 0

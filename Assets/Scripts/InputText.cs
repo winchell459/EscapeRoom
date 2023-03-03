@@ -26,6 +26,7 @@ public class InputText : Puzzle
 
     public void OnValueChanged(string value)
     {
+        //Debug.Log($"OnValueChanged({value})");
         FindObjectOfType<EscapeNetworkObjects>().OnTextInputValueChanged(value, this);
     }
     public string GetValue()

@@ -87,7 +87,7 @@ public class Grabber : MonoBehaviour
             holdingObject.position = pointer.forward * FindObjectOfType<Grabber>().holdingDistance + pointer.position;
             holdingObject.parent = pointer;
             item = holdingObject.gameObject;
-            if (holdingObject.name != "key")
+            if (holdingObject.name != "key" && holdingObject.name != "watering can")
             {
                 Debug.Log(item);
                 
@@ -147,6 +147,16 @@ public class Grabber : MonoBehaviour
         else if (clicked.CompareTag("Computer"))
         {
             clicked.gameObject.SendMessage("ComputerTurnOn");
+        }
+        else if (clicked.CompareTag("Plant"))
+        {
+            if (clicked.transform.CompareTag("Plant"))
+            {
+                Debug.Log("plant hit");
+                holdingObject = null;
+                item.SendMessage("Water");
+
+            }
         }
     }
 }

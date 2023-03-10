@@ -22,6 +22,10 @@ namespace EscapeNetwork
         public Transform holdingObject;
         public GameObject item;
 
+        public NetworkVariable<long> TextInput = new NetworkVariable<long>();
+        public NetworkVariable<int> TextInputIndex = new NetworkVariable<int>();
+        public NetworkVariable<bool> TextInputSubmit = new NetworkVariable<bool>();
+
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
@@ -53,6 +57,40 @@ namespace EscapeNetwork
         {
             HoldingObjectID.Value = objectID;
         }
+        [ServerRpc]
+        private void SubmitInputTextValueChangedServerRpc(string value, int index)
+        {
+            Debug.Log($"SubmitInputTextValueChangedServerRpc({value},{index})");
+            //networkVariables[index].Value = value;
+            if (!TextInputSubmit.Value)
+            {
+                TextInput.Value = EscapeNetworkObjects.StringToInt(value);
+                TextInputIndex.Value = index;
+                TextInputSubmit.Value = true;
+            }
+            
+
+            Debug.Log($"{value} -> {TextInput.Value}:{EscapeNetworkObjects.IntToString(TextInput.Value)}");
+        }
+        string subValue;
+        int subIndex;
+        bool subSubmit;
+        public void OnTextInputValueChanged(string value, int index)
+        {
+            if (IsOwner)
+            {
+                Debug.Log($"OnTextInputValueChanged({ value}, { index})");
+                SubmitInputTextValueChangedServerRpc(value, index);
+            }
+
+            //if (!subSubmit)
+            //{
+            //    subValue = value;
+            //    subIndex = index;
+            //    subSubmit = true;
+            //}
+
+        }
 
         public void SubmitGrabberObjectClick(GameObject clickedObject)
         {
@@ -65,6 +103,11 @@ namespace EscapeNetwork
             if (IsOwner)
             {
                 SubmitPositionServerRpc(playerBody.position, playerBody.localEulerAngles, playerHead.localPosition, playerHead.localEulerAngles);
+                if (subSubmit)
+                {
+                    SubmitInputTextValueChangedServerRpc(subValue, subIndex);
+                    subSubmit = false;
+                }
             }
             else
             {

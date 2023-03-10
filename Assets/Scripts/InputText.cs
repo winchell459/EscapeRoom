@@ -20,14 +20,15 @@ public class InputText : Puzzle
             inputField.interactable = false;
             Debug.Log("correct");
             cabinet.SendMessage("Unlocked");
-            FindObjectOfType<GameHandler>().ObjectTriggered(this);
+            if(FindObjectOfType<GameHandler>()) FindObjectOfType<GameHandler>().ObjectTriggered(this);
         }
     }
 
     public void OnValueChanged(string value)
     {
         //Debug.Log($"OnValueChanged({value})");
-        FindObjectOfType<EscapeNetworkObjects>().OnTextInputValueChanged(value, this);
+        int index = FindObjectOfType<EscapeNetworkObjects>().GetTextIndex(this);
+        FindObjectOfType<Grabber>().networkPlayer.OnTextInputValueChanged(value, index);
     }
     public string GetValue()
     {
@@ -35,6 +36,6 @@ public class InputText : Puzzle
     }
     public void SetValue(string value)
     {
-        inputText.text = value;
+        inputField.text = value;
     }
 }

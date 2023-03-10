@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BookShelf : Puzzle
 {
+    public bool grabableBooks;
     public Shelf[] Shelves;
     [System.Serializable]
     public struct Shelf
@@ -148,9 +149,25 @@ public class BookShelf : Puzzle
 
     private void Start()
     {
+        PuzzleStart();
         foreach (Shelf shelf in Shelves)
         {
             SortBookShelf(shelf);
+        }
+        if (puzzleComplete) PuzzleComplete();
+    }
+
+    protected override void PuzzleComplete()
+    {
+        if (grabableBooks)
+        {
+            foreach(Shelf shelf in Shelves)
+            {
+                foreach(GameObject book in shelf.books)
+                {
+                    book.tag = "Grabable";
+                }
+            }
         }
     }
 

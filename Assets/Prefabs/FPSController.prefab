@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9110412089872721120}
   - component: {fileID: 9110412089874636384}
   - component: {fileID: 9110412089814919604}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FPSController
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -306,6 +306,7 @@ MonoBehaviour:
   pointer: {fileID: 9110412089869851554}
   reachDistance: 10
   holdingDistance: 2
+  networkPlayer: {fileID: 0}
 --- !u!1 &9110412089869617026
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ GameObject:
   - component: {fileID: 9110412089868240288}
   - component: {fileID: 9110412089874209152}
   - component: {fileID: 9110412089878747078}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

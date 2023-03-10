@@ -10,6 +10,7 @@ public class Grabber : MonoBehaviour
     private Transform holdingObject;
     private GameObject item;
     public EscapeNetwork.EscapeNetworkPlayer networkPlayer;
+    public LayerMask layerMask;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +20,7 @@ public class Grabber : MonoBehaviour
             if (holdingObject == null)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
+                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance, layerMask))
                 {
                     if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(hit.transform.gameObject);
                     ObjectClicked(hit.transform, ref holdingObject, ref item, pointer);
@@ -41,7 +42,7 @@ public class Grabber : MonoBehaviour
             Debug.Log("key door");
             Destroy(item.GetComponent<BoxCollider>());
             RaycastHit hitt;
-            if (Physics.Raycast(pointer.position, pointer.forward, out hitt, FindObjectOfType<Grabber>().reachDistance))
+            if (Physics.Raycast(pointer.position, pointer.forward, out hitt, FindObjectOfType<Grabber>().reachDistance, FindObjectOfType<Grabber>().layerMask))
             {
                 if (hitt.transform.CompareTag("Door"))
                 {
@@ -69,7 +70,8 @@ public class Grabber : MonoBehaviour
             holdingObject.parent = pointer;
             if (holdingObject.name != "key")
             {
-                Destroy(holdingObject.GetComponent<Rigidbody>());
+                if(holdingObject.GetComponent<Rigidbody>())
+                    Destroy(holdingObject.GetComponent<Rigidbody>());
             }
             else
             {

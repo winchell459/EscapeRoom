@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44190785, g: 0.56898135, b: 0.6455429, a: 1}
+  m_IndirectSpecularColor: {r: 0.4419067, g: 0.5689807, b: 0.6455426, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -459,6 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleComplete: 0
   objectTriggers: []
   triggerObject: {fileID: 689581760}
   completeObject: {fileID: 0}
@@ -961,6 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleComplete: 0
   objectTriggers: []
   triggerObject: {fileID: 886109967}
   completeObject: {fileID: 0}
@@ -1166,7 +1168,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1174,14 +1175,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -1386,6 +1379,10 @@ MonoBehaviour:
   pointer: {fileID: 1346909276}
   reachDistance: 5
   holdingDistance: 2
+  networkPlayer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1001 &1339011111
 PrefabInstance:
   m_ObjectHideFlags: 0

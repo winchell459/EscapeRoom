@@ -8,7 +8,8 @@ public class EscapeNetworkObjects : NetworkBehaviour
     public List<GameObject> networkObjects;
     public List<InputText> networkInputTexts;
     public List<NetworkVariable<string>> networkVariables = new List<NetworkVariable<string>>();
-    public NetworkVariable<int> networkVariable = new NetworkVariable<int>();
+    public NetworkVariable<long> networkVariable = new NetworkVariable<long>();
+    public NetworkVariable<bool> textValueChanged = new NetworkVariable<bool>();
     private void Awake()
     {
         for (int i = 0; i < networkInputTexts.Count; i += 1)
@@ -60,23 +61,53 @@ public class EscapeNetworkObjects : NetworkBehaviour
         }
         if(index >= 0)
         {
-            SubmitInputTextValueChangedClientRpc(value, index);
+            //SubmitInputTextValueChangedServerRpc(value, index);
+            SubmitInputTextValueChangedServerRpc(value, index);
         }
-        Debug.Log($"OnTextInputValueChanged index:{index}");
+        Debug.Log($"OnTextInputValueChanged index:{index} value: {value}");
     }
 
-    [ClientRpc]
-    private void SubmitInputTextValueChangedClientRpc(string value, int index)
+    
+    
+    [ServerRpc/*(RequireOwnership = false)*/]
+    private void SubmitInputTextValueChangedServerRpc(string value, int index)
     {
         Debug.Log($"SubmitInputTextValueChangedServerRpc({value},{index})");
         //networkVariables[index].Value = value;
         networkVariable.Value = StringToInt(value);
         Debug.Log($"{value} -> {networkVariable.Value}:{IntToString(networkVariable.Value)}");
-    }
 
+        textValueChanged.Value = true;
+    }
+    //[ClientRpc]
+    //private void SubmitInputTextValueChangedClientRpc(string value, int index)
+    //{
+    //    Debug.Log($"SubmitInputTextValueChangedClientRpc({value},{index})");
+    //    //networkVariables[index].Value = value;
+    //    networkVariable.Value = StringToInt(value);
+    //    Debug.Log($"{value} -> {networkVariable.Value}:{IntToString(networkVariable.Value)}");
+    //}
+
+    
     private void Update()
     {
-        for(int i = 0; i < networkInputTexts.Count; i += 1)
+        if (IsServer)
+        {
+            foreach (EscapeNetwork.EscapeNetworkPlayer networkPlayer in FindObjectsOfType<EscapeNetwork.EscapeNetworkPlayer>())
+            {
+                if (networkPlayer.TextInputSubmit.Value)
+                {
+                    Debug.Log($"networkPlayer.NetworkObjectId: {networkPlayer.NetworkObjectId}");
+                    if (networkInputTexts[networkPlayer.TextInputIndex.Value].GetValue() != IntToString(networkVariable.Value))
+                        SubmitInputTextValueChangedServerRpc(IntToString(networkPlayer.TextInput.Value), networkPlayer.TextInputIndex.Value);
+                    //networkInputTexts[networkPlayer.TextInputIndex.Value].SetValue(IntToString(networkPlayer.TextInput.Value));
+                    networkPlayer.TextInputSubmit.Value = false;
+                    Debug.Log($"networkPlayer.TextInputSubmit.Value {networkPlayer.TextInputSubmit.Value}");
+                }
+            }
+        }
+        
+        for (int i = 0; i < networkInputTexts.Count; i += 1)
         {
             //if (networkInputTexts[i].GetValue() != networkVariables[i].Value)
             //{
@@ -88,22 +119,43 @@ public class EscapeNetworkObjects : NetworkBehaviour
             //}
             if (networkInputTexts[i].GetValue() != IntToString(networkVariable.Value))
             {
-                networkInputTexts[i].SetValue(IntToString(networkVariable.Value));
+                //bool valueChanging = false;
+                //foreach (EscapeNetwork.EscapeNetworkPlayer networkPlayer in FindObjectsOfType<EscapeNetwork.EscapeNetworkPlayer>())
+                //{
+                //    if (networkPlayer.TextInputIndex.Value == i && networkPlayer)
+                //    {
+                //        valueChanging = true;
+                //    }
+                //}
+                //if(valueChanging)
+                    networkInputTexts[i].SetValue(IntToString(networkVariable.Value));
+                //textValueChanged.Value = false;
             }
         }
+        
+    }
+    public int GetTextIndex(InputText inputText)
+    {
+        int index = -1;
+        for (int i = 0; i < networkInputTexts.Count; i += 1)
+        {
+            if (networkInputTexts[i] == inputText) index = i;
+        }
+        return index;
     }
 
-    private int StringToInt(string value)
+    public static long StringToInt(string value)
     {
-        int asciiInt = 0;
+        long asciiInt = 0;
         for(int i = 0; i < value.Length; i += 1)
         {
             asciiInt += value[i] << 8 * i;
         }
+
         return asciiInt;
     }
 
-    private string IntToString(int value)
+    public static string IntToString(long value)
     {
         string str = "";
         while(value > 0)

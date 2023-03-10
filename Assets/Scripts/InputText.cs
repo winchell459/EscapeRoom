@@ -9,6 +9,7 @@ public class InputText : Puzzle
     public Text inputText;
     public Button button;
     public GameObject cabinet;
+    public GameObject computer;
 
     public string passcode = "12345";
 
@@ -19,7 +20,14 @@ public class InputText : Puzzle
         {
             inputField.interactable = false;
             Debug.Log("correct");
-            cabinet.SendMessage("Unlocked");
+            if (cabinet != null)
+            {
+                cabinet.SendMessage("Unlocked");
+            }
+            else if (computer != null)
+            {
+                computer.SendMessage("CorrectPassword");
+            }
             FindObjectOfType<GameHandler>().ObjectTriggered(this);
         }
     }

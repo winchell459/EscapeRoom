@@ -18,7 +18,7 @@ public class Clock : Puzzle {
     public GameObject pointerMinutes;
     public GameObject pointerHours;
 
-    public GameObject spawnObject;
+    public Puzzle ClockPuzzleObject;
     private bool puzzleSolved = false;
     
     //-- time speed factor
@@ -45,7 +45,7 @@ void Start()
             if(minutes == targetMinutes && hour % 12 == targetHour)
             {
                 puzzleSolved = true;
-                spawnObject.SetActive(true);
+                ClockPuzzleObject.ObjectTriggered(this);
             }
         }
         
@@ -118,11 +118,13 @@ void Start()
                     minutes = minuteIncrement * (minutes / minuteIncrement);
                 }
                 minutes += minuteIncrement;
+                minutes %= 60;
                 SetAnglesFromTime();
             }
             else if(clickedHand == pointerHours)
             {
                 hour += hourIncrement;
+                hour %= 12;
                 SetAnglesFromTime();
             }
         }

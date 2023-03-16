@@ -307,6 +307,9 @@ MonoBehaviour:
   reachDistance: 10
   holdingDistance: 2
   networkPlayer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 33
 --- !u!1 &9110412089869617026
 GameObject:
   m_ObjectHideFlags: 0

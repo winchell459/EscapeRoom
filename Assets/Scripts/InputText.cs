@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class InputText : Puzzle
     public Text inputText;
     public Button button;
     public GameObject cabinet;
+    public bool changed;
 
     public string passcode = "12345";
 
@@ -28,14 +30,16 @@ public class InputText : Puzzle
     {
         //Debug.Log($"OnValueChanged({value})");
         int index = FindObjectOfType<EscapeNetworkObjects>().GetTextIndex(this);
+        changed = true;
         FindObjectOfType<Grabber>().networkPlayer.OnTextInputValueChanged(value, index);
     }
-    public string GetValue()
+    public FixedString32Bytes GetValue()
     {
-        return inputText.text;
+        return new FixedString32Bytes(inputText.text);
     }
-    public void SetValue(string value)
+    public void SetValue(FixedString32Bytes value)
     {
-        inputField.text = value;
+        Debug.Log($"SetValue({value})");
+        inputField.SetTextWithoutNotify(value.ToString());
     }
 }

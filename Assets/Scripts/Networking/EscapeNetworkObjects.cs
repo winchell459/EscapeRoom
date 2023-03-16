@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Collections;
 
 public class EscapeNetworkObjects : NetworkBehaviour
 {
     public List<GameObject> networkObjects;
     public List<InputText> networkInputTexts;
-    public List<NetworkVariable<string>> networkVariables = new List<NetworkVariable<string>>();
-    public NetworkVariable<long> networkVariable = new NetworkVariable<long>();
-    public NetworkVariable<bool> textValueChanged = new NetworkVariable<bool>();
-    private void Awake()
-    {
-        for (int i = 0; i < networkInputTexts.Count; i += 1)
-        {
-            networkVariables.Add(new NetworkVariable<string>(""));
-        }
-    }
+
+    public NetworkVariable<FixedString32Bytes> networkVariable = new NetworkVariable<FixedString32Bytes>();
+    public NetworkVariable<FixedString32Bytes> networkVariable2 = new NetworkVariable<FixedString32Bytes>();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +56,6 @@ public class EscapeNetworkObjects : NetworkBehaviour
         }
         if(index >= 0)
         {
-            //SubmitInputTextValueChangedServerRpc(value, index);
             SubmitInputTextValueChangedServerRpc(value, index);
         }
         Debug.Log($"OnTextInputValueChanged index:{index} value: {value}");
@@ -69,24 +63,26 @@ public class EscapeNetworkObjects : NetworkBehaviour
 
     
     
-    [ServerRpc/*(RequireOwnership = false)*/]
-    private void SubmitInputTextValueChangedServerRpc(string value, int index)
+    [ServerRpc(RequireOwnership = false)]
+    private void SubmitInputTextValueChangedServerRpc(FixedString32Bytes value, int index)
     {
         Debug.Log($"SubmitInputTextValueChangedServerRpc({value},{index})");
-        //networkVariables[index].Value = value;
-        networkVariable.Value = StringToInt(value);
-        Debug.Log($"{value} -> {networkVariable.Value}:{IntToString(networkVariable.Value)}");
 
-        textValueChanged.Value = true;
+        GetNetworkVariable(index).Value = value;
+
     }
-    //[ClientRpc]
-    //private void SubmitInputTextValueChangedClientRpc(string value, int index)
-    //{
-    //    Debug.Log($"SubmitInputTextValueChangedClientRpc({value},{index})");
-    //    //networkVariables[index].Value = value;
-    //    networkVariable.Value = StringToInt(value);
-    //    Debug.Log($"{value} -> {networkVariable.Value}:{IntToString(networkVariable.Value)}");
-    //}
+    NetworkVariable<FixedString32Bytes> GetNetworkVariable(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return networkVariable;
+            case 1:
+                return networkVariable2;
+            default:
+                return null;
+        }
+    }
 
     
     private void Update()
@@ -97,10 +93,8 @@ public class EscapeNetworkObjects : NetworkBehaviour
             {
                 if (networkPlayer.TextInputSubmit.Value)
                 {
-                    Debug.Log($"networkPlayer.NetworkObjectId: {networkPlayer.NetworkObjectId}");
-                    if (networkInputTexts[networkPlayer.TextInputIndex.Value].GetValue() != IntToString(networkVariable.Value))
-                        SubmitInputTextValueChangedServerRpc(IntToString(networkPlayer.TextInput.Value), networkPlayer.TextInputIndex.Value);
-                    //networkInputTexts[networkPlayer.TextInputIndex.Value].SetValue(IntToString(networkPlayer.TextInput.Value));
+                    SubmitInputTextValueChangedServerRpc(networkPlayer.TextInput.Value, networkPlayer.TextInputIndex.Value);
+                    
                     networkPlayer.TextInputSubmit.Value = false;
                     Debug.Log($"networkPlayer.TextInputSubmit.Value {networkPlayer.TextInputSubmit.Value}");
                 }
@@ -109,28 +103,14 @@ public class EscapeNetworkObjects : NetworkBehaviour
         
         for (int i = 0; i < networkInputTexts.Count; i += 1)
         {
-            //if (networkInputTexts[i].GetValue() != networkVariables[i].Value)
-            //{
-            //    networkInputTexts[i].SetValue(networkVariables[i].Value);
-            //}
-            //if (networkInputTexts[i].GetValue() != networkVariable.Value)
-            //{
-            //    networkInputTexts[i].SetValue(networkVariable.Value);
-            //}
-            if (networkInputTexts[i].GetValue() != IntToString(networkVariable.Value))
+            
+            if (!networkInputTexts[i].changed && networkInputTexts[i].GetValue() != GetNetworkVariable(i).Value)
             {
-                //bool valueChanging = false;
-                //foreach (EscapeNetwork.EscapeNetworkPlayer networkPlayer in FindObjectsOfType<EscapeNetwork.EscapeNetworkPlayer>())
-                //{
-                //    if (networkPlayer.TextInputIndex.Value == i && networkPlayer)
-                //    {
-                //        valueChanging = true;
-                //    }
-                //}
-                //if(valueChanging)
-                    networkInputTexts[i].SetValue(IntToString(networkVariable.Value));
-                //textValueChanged.Value = false;
-            }
+                
+                networkInputTexts[i].SetValue(GetNetworkVariable(i).Value);
+                
+            }else if(networkInputTexts[i].GetValue() == GetNetworkVariable(i).Value)
+                networkInputTexts[i].changed = false;
         }
         
     }
@@ -144,26 +124,5 @@ public class EscapeNetworkObjects : NetworkBehaviour
         return index;
     }
 
-    public static long StringToInt(string value)
-    {
-        long asciiInt = 0;
-        for(int i = 0; i < value.Length; i += 1)
-        {
-            asciiInt += value[i] << 8 * i;
-        }
-
-        return asciiInt;
-    }
-
-    public static string IntToString(long value)
-    {
-        string str = "";
-        while(value > 0)
-        {
-            str += (char)(value % 256);
-            value = value >> 8;
-        }
-        return str;
-    }
 
 }

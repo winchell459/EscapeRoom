@@ -601,10 +601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectTriggers: []
   inputField: {fileID: 2898111528410467622}
   inputText: {fileID: 2898111528292905328}
   button: {fileID: 2898111528665382536}
   cabinet: {fileID: 0}
+  computer: {fileID: 0}
   passcode: 3597
 --- !u!82 &2898111528678785822
 AudioSource:
@@ -898,7 +900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 4.27}
+  m_AnchoredPosition: {x: 0, y: 4.269989}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2898111529852056397
@@ -944,7 +946,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2898111529852056395
 MonoBehaviour:
   m_ObjectHideFlags: 0

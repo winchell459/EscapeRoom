@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1314,6 +1314,7 @@ GameObject:
   - component: {fileID: 158610186}
   - component: {fileID: 158610185}
   - component: {fileID: 158610189}
+  - component: {fileID: 158610190}
   m_Layer: 0
   m_Name: red platform
   m_TagString: Untagged
@@ -1412,8 +1413,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 1064171148}
   completeObject: {fileID: 0}
+--- !u!65 &158610190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158610184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.57, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &161150122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6995,6 +7010,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d79238e340446545b920b58f2cd9574, type: 3}
+--- !u!1 &795758048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 198422, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
+  m_PrefabInstance: {fileID: 953838433}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &804529643
 GameObject:
   m_ObjectHideFlags: 0
@@ -24738,6 +24758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 1064171148}
   completeObject: {fileID: 0}
 --- !u!65 &1850743098
@@ -25244,6 +25265,25 @@ PrefabInstance:
 --- !u!4 &1918327842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 408632, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
+  m_PrefabInstance: {fileID: 953838433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1918327843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795758048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6b3ae57d9d95444ab951c8fe238859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1918327845}
+  nearbyRange: 2
+--- !u!95 &1918327845 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9573410, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
   m_PrefabInstance: {fileID: 953838433}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1937183266
@@ -25948,6 +25988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 1074435349}
   completeObject: {fileID: 0}
 --- !u!1001 &2056169879

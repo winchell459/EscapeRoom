@@ -8,11 +8,12 @@ public class ObjectTrigger : Puzzle
     public GameObject completeObject;
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == triggerObject)
+        if (!puzzleComplete && other.gameObject == triggerObject)
         {
             FindObjectOfType<GameHandler>().ObjectTriggered(this);
             if (completeObject) completeObject.SendMessage("ObjectTriggered", this);
             Debug.Log("object triggered");
+            puzzleComplete = true;
         }
     }
 }

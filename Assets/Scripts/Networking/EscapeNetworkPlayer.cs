@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Collections;
 
 namespace EscapeNetwork
 {
@@ -22,6 +23,10 @@ namespace EscapeNetwork
         public Transform holdingObject;
         public GameObject item;
 
+        public NetworkVariable<FixedString32Bytes> TextInput = new NetworkVariable<FixedString32Bytes>();
+        public NetworkVariable<int> TextInputIndex = new NetworkVariable<int>();
+        public NetworkVariable<bool> TextInputFlag = new NetworkVariable<bool>();
+
         public override void OnNetworkSpawn()
         {
             if(IsOwner)
@@ -37,6 +42,22 @@ namespace EscapeNetwork
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
+        }
+
+        public void OnTextInputValueChanged(string value, int index)
+        {
+            if (IsOwner) SubmitInputTextValueChangedServerRpc(value, index);
+        }
+
+        [ServerRpc]
+        private void SubmitInputTextValueChangedServerRpc(string value, int index)
+        {
+            if (!TextInputFlag.Value)
+            {
+                TextInput.Value = value;
+                TextInputIndex.Value = index;
+                TextInputFlag.Value = true;
+            }
         }
 
         [ServerRpc]

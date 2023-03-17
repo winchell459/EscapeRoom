@@ -6,6 +6,7 @@ public class Puzzle : MonoBehaviour
 {
     public Puzzle[] objectTriggers;
     private bool[] triggeredObjects;
+    public bool puzzleComplete;
 
     // Start is called before the first frame update
     void Start()

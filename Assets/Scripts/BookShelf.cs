@@ -146,12 +146,19 @@ public class BookShelf : Puzzle
         }
     }
 
-    private void Start()
+    bool booksSorted = false;
+    private void SortBookShelves()
     {
         foreach (Shelf shelf in Shelves)
         {
             SortBookShelf(shelf);
         }
+        booksSorted = true;
+    }
+
+    private void Start()
+    {
+        SortBookShelves();
     }
 
     private void SortBookShelf(Shelf shelf)
@@ -173,6 +180,7 @@ public class BookShelf : Puzzle
 
     public List<GameObject> GetBooks()
     {
+        if (!booksSorted) SortBookShelves();
         List<GameObject> books = new List<GameObject>();
         foreach(Shelf shelf in Shelves)
         {

@@ -19,7 +19,7 @@ public class InputText : Puzzle
     public void ButtonClicked()
     {
         Debug.Log($"{inputField.text} == {passcode}");
-        if(inputText.text == passcode)
+        if(inputField.text == passcode)
         {
             inputField.interactable = false;
             Debug.Log("correct");

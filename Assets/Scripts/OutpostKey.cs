@@ -5,7 +5,7 @@ using UnityEngine;
 public class OutpostKey : Puzzle
 {
     public GameObject key;
-    protected virtual void PuzzleComplete()
+    protected override void PuzzleComplete()
     {
         key.SetActive(true);
     }

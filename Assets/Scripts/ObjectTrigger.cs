@@ -10,7 +10,7 @@ public class ObjectTrigger : Puzzle
     {
         if (!puzzleComplete && other.gameObject == triggerObject)
         {
-            FindObjectOfType<GameHandler>().ObjectTriggered(this);
+            //FindObjectOfType<GameHandler>().ObjectTriggered(this);
             if (completeObject) completeObject.SendMessage("ObjectTriggered", this);
             Debug.Log("object triggered");
             puzzleComplete = true;

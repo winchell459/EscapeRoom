@@ -448,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 118380, guid: 52c2612af80526741a33c2092448618c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 118380, guid: 52c2612af80526741a33c2092448618c, type: 3}
       propertyPath: m_TagString
@@ -612,6 +612,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 494348, guid: db49253e161c21440b7ccf6d59865098, type: 3}
   m_PrefabInstance: {fileID: 1132835434}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &97636534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
+  m_PrefabInstance: {fileID: 2070963556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &97636536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97636534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3619976, y: 0.07943356, z: 0.5973911}
+  m_Center: {x: -0.0026074648, y: 0.041890204, z: -0.290905}
 --- !u!1001 &98991716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1415,7 +1433,7 @@ MonoBehaviour:
   objectTriggers: []
   puzzleComplete: 0
   triggerObject: {fileID: 1064171148}
-  completeObject: {fileID: 0}
+  completeObject: {fileID: 1134510844}
 --- !u!65 &158610190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6237,6 +6255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 712288949}
   nearbyRange: 4.5
+  locked: 0
+  doorCollider: {fileID: 0}
 --- !u!4 &721524511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 499240, guid: ef77650fcc7dfd64a8d614922d90c382, type: 3}
@@ -6271,6 +6291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 727108444}
   nearbyRange: 4.5
+  locked: 0
+  doorCollider: {fileID: 0}
 --- !u!1001 &729376857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13112,6 +13134,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198422, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
+      propertyPath: m_TagString
+      value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 198422, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -14017,6 +14043,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db49253e161c21440b7ccf6d59865098, type: 3}
+--- !u!1 &1134510844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134510846}
+  - component: {fileID: 1134510845}
+  m_Layer: 0
+  m_Name: key script
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1134510845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134510844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64656d10a1607d479d4e81d1403ec8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTriggers:
+  - {fileID: 158610189}
+  - {fileID: 2050431049}
+  - {fileID: 1850743097}
+  puzzleComplete: 0
+  key: {fileID: 97636534}
+--- !u!4 &1134510846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134510844}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.1826916, y: 0.62139904, z: -9.548856}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1140100404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21494,6 +21570,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 499240, guid: ef77650fcc7dfd64a8d614922d90c382, type: 3}
   m_PrefabInstance: {fileID: 1305287811}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1408102250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1408102251}
+  m_Layer: 0
+  m_Name: spawn point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1408102251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408102250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.21, y: 1.5225549, z: -12.72}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1408143582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23753,6 +23860,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1714028538}
   nearbyRange: 4.5
+  locked: 0
+  doorCollider: {fileID: 0}
 --- !u!1001 &1714173154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24700,7 +24809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 178036, guid: b1b2094e689c43d4ea4fd01f7c8b5849, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 178036, guid: b1b2094e689c43d4ea4fd01f7c8b5849, type: 3}
       propertyPath: m_TagString
@@ -24858,7 +24967,7 @@ MonoBehaviour:
   objectTriggers: []
   puzzleComplete: 0
   triggerObject: {fileID: 1254526402}
-  completeObject: {fileID: 0}
+  completeObject: {fileID: 1134510844}
 --- !u!65 &1850743098
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25392,11 +25501,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 1918327845}
   nearbyRange: 2
+  locked: 1
+  doorCollider: {fileID: 1918327849}
 --- !u!95 &1918327845 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9573410, guid: 2d927feb0fbf1a7429c095369d395de7, type: 3}
   m_PrefabInstance: {fileID: 953838433}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1918327849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656770718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9999998, y: 4.0475597, z: 0.85641885}
+  m_Center: {x: -0.00000011920929, y: 2.0237799, z: 0}
 --- !u!1001 &1937183266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26102,7 +26226,7 @@ MonoBehaviour:
   objectTriggers: []
   puzzleComplete: 0
   triggerObject: {fileID: 1074435349}
-  completeObject: {fileID: 0}
+  completeObject: {fileID: 1134510844}
 --- !u!65 &2050431050
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26248,7 +26372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
+      propertyPath: m_TagString
+      value: Grabable
       objectReference: {fileID: 0}
     - target: {fileID: 4928660697120000977, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -26268,7 +26396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7507803538085511292, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.697
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7507803538085511292, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26276,7 +26404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7507803538085511292, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.345
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7507803538085511292, guid: 65b6c35cc4f589a4b8489562b3c84db4, type: 3}
       propertyPath: m_LocalRotation.w

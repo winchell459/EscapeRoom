@@ -7,20 +7,37 @@ public class DoorHinge : MonoBehaviour
     public Animator anim;
     public float nearbyRange = 2;
     private Transform player;
+    public bool locked = false;
+    public BoxCollider doorCollider;
+
+    private void Start()
+    {
+        anim.SetBool("character_nearby", false);
+    }
 
     private void Update()
     {
-        if (!player)
+        if (!locked)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            if (!player)
+            {
+                player = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+            else if (Vector3.Distance(player.position, transform.position) < nearbyRange)
+            {
+                anim.SetBool("character_nearby", true);
+            }
+            else
+            {
+                anim.SetBool("character_nearby", false);
+            }
         }
-        else if(Vector3.Distance(player.position, transform.position) < nearbyRange)
-        {
-            anim.SetBool("character_nearby", true);
-        }
-        else
-        {
-            anim.SetBool("character_nearby", false);
-        }
+        
+    }
+
+    public void Unlock()
+    {
+        anim.SetBool("character_nearby", true);
+        Destroy(doorCollider);
     }
 }

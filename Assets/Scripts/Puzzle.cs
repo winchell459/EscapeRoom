@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Puzzle : MonoBehaviour
 {
-    public bool puzzleComplete;
     public Puzzle[] objectTriggers;
     private bool[] triggeredObjects;
+    public bool puzzleComplete;
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +14,7 @@ public class Puzzle : MonoBehaviour
         PuzzleStart();
     }
 
-    protected void PuzzleStart()
+    protected virtual void PuzzleStart()
     {
         triggeredObjects = new bool[objectTriggers.Length];
     }

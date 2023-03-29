@@ -20,7 +20,7 @@ public class Grabber : MonoBehaviour
             if (holdingObject == null)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance, layerMask))
+                if (Physics.Raycast(pointer.position, pointer.forward, out hit, reachDistance))
                 {
                     if (networkPlayer) networkPlayer.SubmitGrabberObjectClick(hit.transform.gameObject);
                     ObjectClicked(hit.transform, ref holdingObject, ref item, pointer);
@@ -41,7 +41,7 @@ public class Grabber : MonoBehaviour
             Debug.Log("key door");
             Destroy(item.GetComponent<BoxCollider>());
             RaycastHit hitt;
-            if (Physics.Raycast(pointer.position, pointer.forward, out hitt, FindObjectOfType<Grabber>().reachDistance, FindObjectOfType<Grabber>().layerMask))
+            if (Physics.Raycast(pointer.position, pointer.forward, out hitt, FindObjectOfType<Grabber>().reachDistance))
             {
                 if (hitt.transform.CompareTag("Door"))
                 {
@@ -52,6 +52,23 @@ public class Grabber : MonoBehaviour
             }
         }
 
+        if (item && item.name == "watering can")
+        {
+            Destroy(item.GetComponent<BoxCollider>());
+            RaycastHit hittt;
+            if (Physics.Raycast(pointer.position, pointer.forward, out hittt, FindObjectOfType<Grabber>().reachDistance, FindObjectOfType<Grabber>().layerMask))
+            {
+                Debug.Log("watering can let go, hit smth");
+                Debug.Log(hittt.transform.gameObject.tag);
+                if (hittt.transform.CompareTag("Plant"))
+                {
+                    Debug.Log("plant hit");
+                    Destroy(item);
+                    pointer.gameObject.SendMessage("Water");
+                    
+                }
+            }
+        }
 
         else if (holdingObject.CompareTag("Grabable"))
         {
@@ -60,11 +77,9 @@ public class Grabber : MonoBehaviour
         }
         //stop bookshelf selection mode
 
-
-
-
         holdingObject = null;
     }
+
     public static void ObjectClicked(Transform clicked, ref Transform holdingObject, ref GameObject item, Transform pointer)
     {
         if (clicked.CompareTag("Grabable"))
@@ -72,10 +87,12 @@ public class Grabber : MonoBehaviour
             holdingObject = clicked;
             holdingObject.position = pointer.forward * FindObjectOfType<Grabber>().holdingDistance + pointer.position;
             holdingObject.parent = pointer;
-            if (holdingObject.name != "key")
+            item = holdingObject.gameObject;
+            if (holdingObject.name != "key" && holdingObject.name != "watering can")
             {
-                if(holdingObject.GetComponent<Rigidbody>())
-                Destroy(holdingObject.GetComponent<Rigidbody>());
+                Debug.Log(item);
+                if (holdingObject.GetComponent<Rigidbody>())
+                    Destroy(holdingObject.GetComponent<Rigidbody>());
             }
             else
             {
@@ -126,6 +143,20 @@ public class Grabber : MonoBehaviour
             {
                 clicked.gameObject.SendMessage("Unlock");
                 Destroy(item);
+            }
+        }
+        else if (clicked.CompareTag("Computer"))
+        {
+            clicked.gameObject.SendMessage("ComputerTurnOn");
+        }
+        else if (clicked.CompareTag("Plant"))
+        {
+            if (clicked.transform.CompareTag("Plant"))
+            {
+                Debug.Log("plant hit");
+                holdingObject = null;
+                item.SendMessage("Water");
+
             }
         }
         else if (clicked.CompareTag("Clock"))

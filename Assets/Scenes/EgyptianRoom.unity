@@ -250,6 +250,10 @@ MonoBehaviour:
   pointer: {fileID: 2065582948}
   reachDistance: 5
   holdingDistance: 2
+  networkPlayer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &36441575
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +348,7 @@ MonoBehaviour:
   objectTriggers:
   - {fileID: 342733984}
   - {fileID: 1482472338}
+  puzzleComplete: 0
   anim: {fileID: 36914897}
 --- !u!95 &36914897
 Animator:
@@ -1134,6 +1139,10 @@ MonoBehaviour:
   pointer: {fileID: 2065582948}
   reachDistance: 5
   holdingDistance: 2
+  networkPlayer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &190050180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1378,6 +1387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   statuePuzzleDoor: {fileID: 36914896}
   rotateRate: 90
   angleTarget: 270
@@ -1522,6 +1532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 187877659}
   completeObject: {fileID: 925611094}
 --- !u!65 &389010091
@@ -1719,6 +1730,10 @@ MonoBehaviour:
   pointer: {fileID: 2065582948}
   reachDistance: 5
   holdingDistance: 2
+  networkPlayer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &391655862
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12280,6 +12295,7 @@ MonoBehaviour:
   objectTriggers:
   - {fileID: 389010090}
   - {fileID: 1700705487}
+  puzzleComplete: 0
   anim: {fileID: 925611096}
 --- !u!1 &927067210
 GameObject:
@@ -13363,6 +13379,10 @@ MonoBehaviour:
   pointer: {fileID: 1346909276}
   reachDistance: 8
   holdingDistance: 2
+  networkPlayer: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &1286829429
 GameObject:
   m_ObjectHideFlags: 0
@@ -14245,6 +14265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   statuePuzzleDoor: {fileID: 36914896}
   rotateRate: 90
   angleTarget: 90
@@ -14627,6 +14648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 32119915}
   completeObject: {fileID: 925611094}
 --- !u!65 &1700705488

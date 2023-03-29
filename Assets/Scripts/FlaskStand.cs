@@ -12,13 +12,13 @@ public class FlaskStand : Puzzle
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private Flask selectedFlask;
     public bool FlaskSelected(GameObject flaskObj)
@@ -27,7 +27,7 @@ public class FlaskStand : Puzzle
 
         Debug.Log($"{flask.name} was selected");
 
-        
+
         if (!selectedFlask) //first selection
         {
             selectedFlask = flask;
@@ -41,8 +41,8 @@ public class FlaskStand : Puzzle
 
             return false;
         }
-        
-        else if(flask) //second selection
+
+        else if (flask) //second selection
         {
             if (flask.GetValue() >= flask.maxValue)
             {
@@ -58,7 +58,7 @@ public class FlaskStand : Puzzle
             selectedFlask = null;
 
         }
-        
+
         selectedFlask = null;
         checkFlask();
         return false;
@@ -66,7 +66,7 @@ public class FlaskStand : Puzzle
 
     Flask GetFlask(GameObject flaskObj)
     {
-        foreach(Flask flask in flasks)
+        foreach (Flask flask in flasks)
         {
             if (flask.gameObject == flaskObj) return flask;
         }
@@ -76,14 +76,14 @@ public class FlaskStand : Puzzle
     void checkFlask()
     {
         bool solved = true;
-        for(int i = 0; i < flasks.Length; i++)
+        for (int i = 0; i < flasks.Length; i++)
         {
-            if(flasks[i].targetValue != flaskTargets[i])
+            if (flasks[i].targetValue != flaskTargets[i])
             {
                 solved = false;
             }
         }
-        if(solved)
+        if (solved)
         {
             Debug.Log("correct");
             paper.SetActive(true);

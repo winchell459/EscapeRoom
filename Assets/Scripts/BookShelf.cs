@@ -147,9 +147,19 @@ public class BookShelf : Puzzle
         }
     }
 
+    //bool booksSorted = false;
+    //private void SortBookShelves()
+    //{
+    //    foreach (Shelf shelf in Shelves)
+    //    {
+    //        SortBookShelf(shelf);
+    //    }
+    //    booksSorted = true;
+    //}
+
     private void Start()
     {
-        if(!booksSorted) SortBookshelves();
+        if (!booksSorted) SortBookshelves();
     }
     bool booksSorted = false;
     private void SortBookshelves()
@@ -167,9 +177,9 @@ public class BookShelf : Puzzle
     {
         if (grabbableBooks)
         {
-            foreach(Shelf shelf in Shelves)
+            foreach (Shelf shelf in Shelves)
             {
-                foreach(GameObject book in shelf.books)
+                foreach (GameObject book in shelf.books)
                 {
                     book.tag = "Grabable";
                 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClockPuzzle : Puzzle
 {
     public GameObject spawnObject;
-    private bool puzzleComplete;
+    
     protected override void PuzzleComplete()
     {
         if (!puzzleComplete)

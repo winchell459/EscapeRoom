@@ -414,8 +414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 503472888}
   completeObject: {fileID: 182748875}
 --- !u!65 &16783323
@@ -872,8 +872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 310054349}
   completeObject: {fileID: 182748875}
 --- !u!65 &19839998
@@ -5464,8 +5464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   inputField: {fileID: 139506650}
   inputText: {fileID: 179461480}
   button: {fileID: 258477389}
@@ -6927,12 +6927,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ec40670eb11904397cd4c0ec25c828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers:
   - {fileID: 19839997}
   - {fileID: 1698406869}
   - {fileID: 899082046}
   - {fileID: 16783322}
+  puzzleComplete: 0
   spawnObject: {fileID: 777664038}
 --- !u!4 &182748877
 Transform:
@@ -11919,8 +11919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   inputField: {fileID: 155897940}
   inputText: {fileID: 130008597}
   button: {fileID: 2037686721}
@@ -21071,9 +21071,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6630e19a20f04124fae7bee607fa0dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers:
   - {fileID: 1621781356}
+  puzzleComplete: 0
   anim: {fileID: 641792529}
 --- !u!95 &641792529
 Animator:
@@ -27388,8 +27388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 948295213}
   completeObject: {fileID: 287575628}
 --- !u!1001 &843403986
@@ -27405,7 +27405,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 357ee47d9d52cd2408f3da928e247483, type: 2}
     - target: {fileID: 5413757438057394579, guid: 4cc30149ff5258945bf0a1f042d0ab2c, type: 3}
       propertyPath: grabbableBooks
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5413757438057394579, guid: 4cc30149ff5258945bf0a1f042d0ab2c, type: 3}
       propertyPath: puzzleComplete
@@ -29261,8 +29261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 1637236064}
   completeObject: {fileID: 182748875}
 --- !u!65 &899082047
@@ -29830,8 +29830,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   inputField: {fileID: 911758484}
   inputText: {fileID: 424260624}
   button: {fileID: 1204675477}
@@ -30274,6 +30274,10 @@ PrefabInstance:
       propertyPath: ClockPuzzleObject
       value: 
       objectReference: {fileID: 1887561547}
+    - target: {fileID: 1609529161937015548, guid: 25376a07416ba3b43b6233192dc6de7b, type: 3}
+      propertyPath: objectTriggers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25376a07416ba3b43b6233192dc6de7b, type: 3}
 --- !u!114 &918772939 stripped
@@ -38878,8 +38882,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   inputField: {fileID: 911758484}
   inputText: {fileID: 424260624}
   button: {fileID: 1204675477}
@@ -50011,8 +50015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   inputField: {fileID: 1609469544}
   inputText: {fileID: 912242518}
   button: {fileID: 1858569917}
@@ -50395,8 +50399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 948295213}
   completeObject: {fileID: 641792527}
 --- !u!65 &1621781357
@@ -52611,8 +52615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045db386aa09d9b489ab2362c5c6b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   triggerObject: {fileID: 598929926}
   completeObject: {fileID: 182748875}
 --- !u!65 &1698406870
@@ -53791,8 +53795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3232cf23eb856634d97b7a54784b790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers: []
+  puzzleComplete: 0
   inputField: {fileID: 1609469544}
   inputText: {fileID: 912242518}
   button: {fileID: 1858569917}
@@ -60435,11 +60439,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b3dfafa87a19b4993570076d561084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleComplete: 0
   objectTriggers:
   - {fileID: 918772939}
   - {fileID: 1597492184}
   - {fileID: 1681869918}
+  puzzleComplete: 0
   spawnObject: {fileID: 310054349}
 --- !u!4 &1887561548
 Transform:

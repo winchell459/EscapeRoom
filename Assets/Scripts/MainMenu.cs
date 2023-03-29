@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(scienceRoom);
     }
 
-    public void EgyptianRoomButton()
+    public void EgyptionRoomButton()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(egyptianRoom);
     }
@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        if(PlayerPrefs.GetString("ScienceRoom", "Incomplete") == "complete")
+        if (PlayerPrefs.GetString("ScienceRoom", "incomplete") == "complete")
         {
             egyptianRoomButton.interactable = true;
         }

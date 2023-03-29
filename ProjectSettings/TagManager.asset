@@ -15,6 +15,8 @@ TagManager:
   - Locked
   - Door
   - Clock
+  - Plant
+  - Computer
   layers:
   - Default
   - TransparentFX

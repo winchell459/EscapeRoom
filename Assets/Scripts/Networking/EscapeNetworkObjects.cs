@@ -30,6 +30,7 @@ public class EscapeNetworkObjects : NetworkBehaviour
 
     public GameObject GetNetworkObject(int objectID)
     {
+        objectID = Mathf.Abs(objectID);
         if(objectID > 0 && objectID <= networkObjects.Count)
         {
             return networkObjects[objectID - 1];

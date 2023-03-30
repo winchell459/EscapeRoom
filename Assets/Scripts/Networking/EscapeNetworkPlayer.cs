@@ -70,6 +70,7 @@ namespace EscapeNetwork
         [ServerRpc]
         void SubmitGrabberObjectClickServerRpc(int objectID)
         {
+            if (HoldingObjectID.Value == objectID) objectID = -objectID;
             HoldingObjectID.Value = objectID;
         }
         public void SubmitGrabberObjectClick(GameObject clickedObject)
@@ -99,6 +100,7 @@ namespace EscapeNetwork
                         if (clicked)
                         {
                             Grabber.ObjectClicked(clicked.transform, ref holdingObject, ref item, playerHead);
+                            
                         }
                     }
                     else

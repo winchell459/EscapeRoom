@@ -6,6 +6,8 @@ public class GameHandler : MonoBehaviour
 {
     public Puzzle[] objectTriggers;
     private bool[] triggeredObjects;
+    public List<Transform> players = new List<Transform>();
+    private List<bool> playersTriggered = new List<bool>();
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,10 @@ public class GameHandler : MonoBehaviour
     {
         SceneUtility.LoadScene("MainMenu");
     }
+    private void NetworkGameComplete()
+    {
+        FindObjectOfType<EscapeSceneManager>().LoadScene();
+    }
 
     private void LevelComplete()
     {
@@ -52,10 +58,28 @@ public class GameHandler : MonoBehaviour
     public string sceneCompletedName = "ScienceRoom";
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && players.Count == 0)
         {
             PlayerPrefs.SetString(sceneCompletedName, "complete");
             GameComplete();
+        }else if (other.CompareTag("Player"))
+        {
+            bool allTriggered = true;
+            for(int i = 0; i < players.Count; i++)
+            {
+                if(players[i] == other.transform)
+                {
+                    playersTriggered[i] = true;
+                }
+                if (!playersTriggered[i]) allTriggered = false;
+            }
+            if (allTriggered) NetworkGameComplete();
         }
+    }
+
+    public void AddNetworkPlayers(Transform player)
+    {
+        players.Add(player);
+        playersTriggered.Add(false);
     }
 }

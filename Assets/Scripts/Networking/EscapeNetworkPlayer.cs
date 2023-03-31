@@ -17,8 +17,8 @@ namespace EscapeNetwork
         [SerializeField] private Transform playerBody, playerHead;
 
         public NetworkVariable<int> HoldingObjectID = new NetworkVariable<int>();
-        public int holdingOjectID = 0; // 0 = not being holding object
-        private EscapeNetworkObjects networkObjects;
+        public int holdingOjectID = 0; 
+        
 
         public Transform holdingObject;
         public GameObject item;
@@ -29,14 +29,30 @@ namespace EscapeNetwork
 
         public override void OnNetworkSpawn()
         {
+            OnSceneStart();
+            
+        }
+        public void OnSceneStart()
+        {
+            Transform spawnPoint = GameObject.Find("Spawn Point").transform;
+            if (spawnPoint)
+            {
+                transform.position = spawnPoint.position;
+                transform.forward = spawnPoint.forward;
+            }
             if (IsOwner)
             {
-                playerBody.gameObject.SetActive(false);
-                playerBody = Instantiate(localPlayerPrefab, transform.position + Vector3.up * 2, Quaternion.identity).transform;
+                if(playerBody)playerBody.gameObject.SetActive(false);
+                playerBody = Instantiate(localPlayerPrefab, transform.position, Quaternion.identity).transform;
                 playerHead = playerBody.GetChild(0);
                 FindObjectOfType<Grabber>().networkPlayer = this;
+
             }
-            networkObjects = FindObjectOfType<EscapeNetworkObjects>();
+            FindObjectOfType<GameHandler>().AddNetworkPlayers(playerBody);
+            
+
+            
+            
         }
 
         public override void OnNetworkDespawn()
@@ -75,7 +91,7 @@ namespace EscapeNetwork
         }
         public void SubmitGrabberObjectClick(GameObject clickedObject)
         {
-            SubmitGrabberObjectClickServerRpc(networkObjects.GetNetworkObjectID(clickedObject));
+            SubmitGrabberObjectClickServerRpc(FindObjectOfType<EscapeNetworkObjects>().GetNetworkObjectID(clickedObject));
         }
 
         // Update is called once per frame
@@ -83,6 +99,7 @@ namespace EscapeNetwork
         {
             if (IsOwner)
             {
+                if (!playerBody) OnSceneStart();
                 SubmitPositionServerRpc(playerBody.position, playerBody.localEulerAngles, playerHead.localPosition, playerHead.localEulerAngles);
             }
             else
@@ -94,9 +111,12 @@ namespace EscapeNetwork
 
                 if(HoldingObjectID.Value != holdingOjectID)
                 {
+                    
                     if(holdingObject == null)
                     {
-                        GameObject clicked = networkObjects.GetNetworkObject(HoldingObjectID.Value);
+                        Debug.Log("Object clicked");
+                        GameObject clicked = FindObjectOfType<EscapeNetworkObjects>().GetNetworkObject(HoldingObjectID.Value);
+                        Debug.Log("Object clicked " + clicked.name);
                         if (clicked)
                         {
                             Grabber.ObjectClicked(clicked.transform, ref holdingObject, ref item, playerHead);
@@ -105,6 +125,7 @@ namespace EscapeNetwork
                     }
                     else
                     {
+                        Debug.Log("Object dropped");
                         Grabber.AlreadyHoldingObject(ref holdingObject, ref item, playerHead);
                     }
                     holdingOjectID = HoldingObjectID.Value;

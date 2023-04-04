@@ -29,21 +29,39 @@ namespace EscapeNetwork
         {
             if (GUILayout.Button("Host"))
             {
-                if(localIP == "")localIP = GetLocalIPAddress();
-                NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = localIP;
-                NetworkManager.Singleton.StartHost();
+                StartHost();
             }
             if (GUILayout.Button("Client"))
             {
-                NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = localIP;
-                NetworkManager.Singleton.StartClient();
+                StartClient();
             }
-            if (GUILayout.Button("Server"))
-            {
-                NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = localIP;
-                NetworkManager.Singleton.StartServer();
-            }
+            //if (GUILayout.Button("Server"))
+            //{
+            //    NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = localIP;
+            //    NetworkManager.Singleton.StartServer();
+            //}
             localIP = GUILayout.TextField(localIP);
+        }
+
+        public static async void StartHost()
+        {
+            RelayManager relayManager = FindObjectOfType<RelayManager>();
+            //if (localIP == "") localIP = GetLocalIPAddress();
+            //NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = localIP;
+            if (relayManager.IsRelayEnabled)
+                await relayManager.SetupRelay();
+            NetworkManager.Singleton.StartHost();
+        }
+
+        public static async void StartClient()
+        {
+            RelayManager relayManager = FindObjectOfType<RelayManager>();
+            //NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData.Address = localIP;
+            if (relayManager.IsRelayEnabled)
+            {
+                await relayManager.JoinRelay(localIP);
+            }
+            NetworkManager.Singleton.StartClient();
         }
 
         static void StatusLabels()

@@ -7,6 +7,6 @@ public class OutpostKey : Puzzle
     public GameObject key;
     protected override void PuzzleComplete()
     {
-        key.SetActive(true);
+        if(key)key.SetActive(true);
     }
 }

@@ -19,20 +19,21 @@ public class DoorHinge : MonoBehaviour
     {
         if (!locked)
         {
-            if (!player)
+            
+            bool characterNearby = false;
+            foreach(GameObject character in GameObject.FindGameObjectsWithTag("Player"))
             {
-                player = GameObject.FindGameObjectWithTag("Player").transform;
+                if(Vector3.Distance(character.transform.position, transform.position) < nearbyRange)
+                {
+                    characterNearby = true;
+                    break;
+                }
             }
-            else if (Vector3.Distance(player.position, transform.position) < nearbyRange)
-            {
-                anim.SetBool("character_nearby", true);
-            }
-            else
-            {
-                anim.SetBool("character_nearby", false);
-            }
+
+            anim.SetBool("character_nearby", characterNearby);
+
         }
-        
+
     }
 
     public void Unlock()

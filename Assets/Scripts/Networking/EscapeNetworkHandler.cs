@@ -9,7 +9,7 @@ namespace EscapeNetwork
 {
     public class EscapeNetworkHandler : MonoBehaviour
     {
-        private static string localIP;
+        private static string localIP = "";
         void OnGUI()
         {
             GUILayout.BeginArea(new Rect(10, 10, 600, 600));

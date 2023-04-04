@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
+    public GameObject playerPrefab;
     public Puzzle[] objectTriggers;
     private bool[] triggeredObjects;
     public List<Transform> players = new List<Transform>();
@@ -13,6 +14,10 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         triggeredObjects = new bool[objectTriggers.Length];
+        if (!GameObject.Find("NetworkManager"))
+        {
+            SpawnPlayer(GetSpawnPoint(transform).position);
+        }
     }
 
     // Update is called once per frame
@@ -81,5 +86,15 @@ public class GameHandler : MonoBehaviour
     {
         players.Add(player);
         playersTriggered.Add(false);
+    }
+    public Transform GetSpawnPoint(Transform defaultPoint)
+    {
+        Transform spawnPoint = GameObject.Find("Spawn Point").transform;
+        if (spawnPoint) return spawnPoint;
+        else return defaultPoint;
+    }
+    public GameObject SpawnPlayer(Vector3 spawnPoint)
+    {
+        return Instantiate(playerPrefab, spawnPoint, Quaternion.identity);
     }
 }

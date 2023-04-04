@@ -34,7 +34,8 @@ namespace EscapeNetwork
         }
         public void OnSceneStart()
         {
-            Transform spawnPoint = GameObject.Find("Spawn Point").transform;
+            GameHandler gh = FindObjectOfType<GameHandler>();
+            Transform spawnPoint = gh.GetSpawnPoint(transform);
             if (spawnPoint)
             {
                 transform.position = spawnPoint.position;
@@ -42,13 +43,13 @@ namespace EscapeNetwork
             }
             if (IsOwner)
             {
-                if(playerBody)playerBody.gameObject.SetActive(false);
-                playerBody = Instantiate(localPlayerPrefab, transform.position, Quaternion.identity).transform;
+                if (playerBody) playerBody.gameObject.SetActive(false);
+                playerBody = gh.SpawnPlayer(spawnPoint.position).transform;
                 playerHead = playerBody.GetChild(0);
                 FindObjectOfType<Grabber>().networkPlayer = this;
 
             }
-            FindObjectOfType<GameHandler>().AddNetworkPlayers(playerBody);
+            gh.AddNetworkPlayers(playerBody);
             
 
             

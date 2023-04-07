@@ -41,9 +41,13 @@ public class InputText : Puzzle
 
     public void OnValueChanged(string value)
     {
-        int index = FindObjectOfType<EscapeNetworkObjects>().GetTextIndex(this);
-        changed = true;
-        FindObjectOfType<Grabber>().networkPlayer.OnTextInputValueChanged(value, index);
+        if (FindObjectOfType<Grabber>().networkPlayer)
+        {
+            int index = FindObjectOfType<EscapeNetworkObjects>().GetTextIndex(this);
+            changed = true;
+            FindObjectOfType<Grabber>().networkPlayer.OnTextInputValueChanged(value, index);
+        }
+        
     }
 
     public FixedString32Bytes GetValue()

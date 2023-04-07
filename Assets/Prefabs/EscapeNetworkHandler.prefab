@@ -59,8 +59,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e82bafafbb9794ca83142e86fc500b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkObjects: []
-  networkInputTexts: []
+  networkObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  networkInputTexts:
+  - {fileID: 0}
   networkVariable1:
     m_InternalValue:
       utf8LengthInBytes: 0
@@ -229,4 +237,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997ae208acc712d4cbbec13e2a96248e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneName: Scene 1
+  m_SceneName: Multiplayer

@@ -1447,25 +1447,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.666227, z: 1}
   m_Center: {x: 0, y: 0.8331137, z: 0}
---- !u!1 &160237697 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7486220465365287753, guid: d787f7bb6a164b34982e003a9f12dab5, type: 3}
-  m_PrefabInstance: {fileID: 338732711}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &160237701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160237697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0599ec842d208c74f98443224078c635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  environment: production
-  maxConnections: 10
 --- !u!1001 &161150122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2845,10 +2826,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7486220465365287752, guid: d787f7bb6a164b34982e003a9f12dab5, type: 3}
-      propertyPath: m_ProtocolType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7486220465365287753, guid: d787f7bb6a164b34982e003a9f12dab5, type: 3}
       propertyPath: m_Name
       value: NetworkManager
@@ -22873,14 +22850,6 @@ PrefabInstance:
       value: 31820104
       objectReference: {fileID: 0}
     - target: {fileID: 1251890818862515121, guid: 5428cf2f45caf7c43a9cee18f3ea73fb, type: 3}
-      propertyPath: networkObjects.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1251890818862515121, guid: 5428cf2f45caf7c43a9cee18f3ea73fb, type: 3}
-      propertyPath: networkInputTexts.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1251890818862515121, guid: 5428cf2f45caf7c43a9cee18f3ea73fb, type: 3}
       propertyPath: networkObjects.Array.data[0]
       value: 
       objectReference: {fileID: 140078098}
@@ -22912,10 +22881,6 @@ PrefabInstance:
       propertyPath: networkInputTexts.Array.data[0]
       value: 
       objectReference: {fileID: 468328199}
-    - target: {fileID: 1251890818862515122, guid: 5428cf2f45caf7c43a9cee18f3ea73fb, type: 3}
-      propertyPath: m_SceneName
-      value: Multiplayer
-      objectReference: {fileID: 0}
     - target: {fileID: 1251890818862515125, guid: 5428cf2f45caf7c43a9cee18f3ea73fb, type: 3}
       propertyPath: m_Name
       value: EscapeNetworkHandler

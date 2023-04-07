@@ -20,6 +20,8 @@ public class RelayManager : MonoBehaviour
 
     public UnityTransport Transport => NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
 
+    public string joinCode;
+
     public async Task<RelayHostData> SetupRelay()
     {
         Debug.Log($"Relay Server Starting with max connections {maxConnections}.");
@@ -48,6 +50,7 @@ public class RelayManager : MonoBehaviour
         Transport.SetRelayServerData(relayHostData.IPvAddress, relayHostData.Port, relayHostData.AllocationIDBytes, relayHostData.Key, relayHostData.ConnectionData);
 
         Debug.Log($"Relay Server generated with join code {relayHostData.JoinCode}.");
+        joinCode = relayHostData.JoinCode;
 
         return relayHostData;
     }
@@ -79,6 +82,7 @@ public class RelayManager : MonoBehaviour
         Transport.SetRelayServerData(relayJoinData.IPvAddress, relayJoinData.Port, 
             relayJoinData.AllocationIDBytes, relayJoinData.Key, relayJoinData.ConnectionData, relayJoinData.HostConnectionData);
         Debug.Log($"Client Joined game with join code {joinCode}");
+        this.joinCode = joinCode;
         return relayJoinData;
     }
 }

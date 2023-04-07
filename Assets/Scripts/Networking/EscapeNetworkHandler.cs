@@ -12,17 +12,25 @@ namespace EscapeNetwork
         private static string localIP = "";
         void OnGUI()
         {
-            GUILayout.BeginArea(new Rect(10, 10, 600, 600));
-            if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
+            if (NetworkManager.Singleton)
             {
-                StartButtons();
+                GUILayout.BeginArea(new Rect(10, 10, 600, 600));
+                if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
+                {
+                    StartButtons();
+                }
+                else
+                {
+                    StatusLabels();
+                }
+
+                GUILayout.EndArea();
             }
             else
             {
-                StatusLabels();
+                Destroy(gameObject);
             }
-
-            GUILayout.EndArea();
+            
         }
 
         static void StartButtons()
@@ -51,6 +59,7 @@ namespace EscapeNetwork
             if (relayManager.IsRelayEnabled)
                 await relayManager.SetupRelay();
             NetworkManager.Singleton.StartHost();
+            localIP = relayManager.joinCode;
         }
 
         public static async void StartClient()
@@ -62,6 +71,7 @@ namespace EscapeNetwork
                 await relayManager.JoinRelay(localIP);
             }
             NetworkManager.Singleton.StartClient();
+            
         }
 
         static void StatusLabels()
@@ -72,7 +82,7 @@ namespace EscapeNetwork
             GUILayout.Label("Transport: " +
                 NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
             GUILayout.Label("Mode: " + mode);
-            GUILayout.Label("Connection Address: " + localIP);
+            GUILayout.Label("Join Code: " + localIP);
         }
 
         public static string GetLocalIPAddress()

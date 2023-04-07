@@ -115,9 +115,9 @@ namespace EscapeNetwork
                     
                     if(holdingObject == null)
                     {
-                        Debug.Log("Object clicked");
+                        //Debug.Log("Object clicked");
                         GameObject clicked = FindObjectOfType<EscapeNetworkObjects>().GetNetworkObject(HoldingObjectID.Value);
-                        Debug.Log("Object clicked " + clicked.name);
+                        //Debug.Log("Object clicked " + clicked.name);
                         if (clicked)
                         {
                             Grabber.ObjectClicked(clicked.transform, ref holdingObject, ref item, playerHead);

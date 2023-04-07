@@ -11,12 +11,17 @@ public class EscapeSceneManager : NetworkBehaviour
 
     public void LoadScene()
     {
+        LoadScene(m_SceneName);
+    }
+
+    public void LoadScene(string sceneName)
+    {
         if (IsServer)
         {
-            var status = NetworkManager.SceneManager.LoadScene(m_SceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+            var status = NetworkManager.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
             if (status != SceneEventProgressStatus.Started)
             {
-                Debug.LogWarning($"Failed to load {m_SceneName} " +
+                Debug.LogWarning($"Failed to load {sceneName} " +
                       $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
         }

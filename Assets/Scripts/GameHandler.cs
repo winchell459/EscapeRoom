@@ -72,7 +72,7 @@ public class GameHandler : MonoBehaviour
             bool allTriggered = true;
             for(int i = 0; i < players.Count; i++)
             {
-                if(players[i] == other.transform)
+                if (players[i] == null || players[i] == other.transform)
                 {
                     playersTriggered[i] = true;
                 }

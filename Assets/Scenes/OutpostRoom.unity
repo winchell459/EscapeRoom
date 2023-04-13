@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: cb141127c7343f349957ed6e598a4685, type: 2}
   m_LightingSettings: {fileID: 781025330}
 --- !u!196 &4
 NavMeshSettings:
@@ -2829,6 +2829,10 @@ PrefabInstance:
     - target: {fileID: 7486220465365287753, guid: d787f7bb6a164b34982e003a9f12dab5, type: 3}
       propertyPath: m_Name
       value: NetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486220465365287753, guid: d787f7bb6a164b34982e003a9f12dab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7486220465365287754, guid: d787f7bb6a164b34982e003a9f12dab5, type: 3}
       propertyPath: m_RootOrder
@@ -7014,7 +7018,7 @@ LightingSettings:
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
   serializedVersion: 4
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 1
   m_RealtimeEnvironmentLighting: 1

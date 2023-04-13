@@ -39,7 +39,7 @@ namespace EscapeNetwork
             if (spawnPoint)
             {
                 transform.position = spawnPoint.position;
-                transform.forward = spawnPoint.forward;
+                //playerBody.forward = spawnPoint.forward;
             }
             if (IsOwner)
             {

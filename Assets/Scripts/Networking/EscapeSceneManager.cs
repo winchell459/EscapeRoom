@@ -16,8 +16,10 @@ public class EscapeSceneManager : NetworkBehaviour
 
     public void LoadScene(string sceneName)
     {
+        //FindObjectOfType<Grabber>().ClearHolding();
         if (IsServer)
         {
+
             var status = NetworkManager.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
             if (status != SceneEventProgressStatus.Started)
             {
@@ -25,5 +27,6 @@ public class EscapeSceneManager : NetworkBehaviour
                       $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
         }
+        
     }
 }

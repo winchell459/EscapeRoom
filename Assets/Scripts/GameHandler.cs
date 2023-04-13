@@ -61,25 +61,53 @@ public class GameHandler : MonoBehaviour
     }
 
     public string sceneCompletedName = "ScienceRoom";
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && players.Count == 0)
+        if (other.CompareTag("Player") && !GameObject.Find("NetworkManager"))
         {
             PlayerPrefs.SetString(sceneCompletedName, "complete");
             GameComplete();
         }else if (other.CompareTag("Player"))
         {
-            bool allTriggered = true;
-            for(int i = 0; i < players.Count; i++)
-            {
-                if (players[i] == null || players[i] == other.transform)
-                {
-                    playersTriggered[i] = true;
-                }
-                if (!playersTriggered[i]) allTriggered = false;
-            }
-            if (allTriggered) NetworkGameComplete();
+            
+            if (HandleNetworkGameCompleteCheck(other.transform)) NetworkGameComplete();
         }
+    }
+
+    private bool HandleNetworkGameCompleteCheck(Transform triggeringPlayer)
+    {
+        bool allTriggered = true;
+        SetNetworkPlayerTriggered(triggeringPlayer);
+        foreach(EscapeNetwork.EscapeNetworkPlayer player in FindObjectsOfType<EscapeNetwork.EscapeNetworkPlayer>())
+        {
+            if (!NetworkPlayerTriggered(player.Body))
+            {
+                return false;
+            }
+        }
+        return allTriggered;
+    }
+    private void SetNetworkPlayerTriggered(Transform player)
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                playersTriggered[i] = true;
+                return;
+            }
+        }
+        AddNetworkPlayers(player);
+        playersTriggered[players.Count - 1] = true;
+    }
+    private bool NetworkPlayerTriggered(Transform player)
+    {
+        for(int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player) return playersTriggered[i];
+        }
+        AddNetworkPlayers(player);
+        return false;
     }
 
     public void AddNetworkPlayers(Transform player)

@@ -50,6 +50,16 @@ public class InputText : Puzzle
         
     }
 
+    public void OnSubmit(string value)
+    {
+        Debug.Log("OnSubmit");
+    }
+    public void OnEndEdit(string value)
+    {
+        Debug.Log("OnEndEdit");
+        FindObjectOfType<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().movementPause = false;
+    }
+
     public FixedString32Bytes GetValue()
     {
         return new FixedString32Bytes(inputField.text);

@@ -15,6 +15,7 @@ namespace EscapeNetwork
 
         public GameObject localPlayerPrefab;
         [SerializeField] private Transform playerBody, playerHead;
+        public Transform Body { get { return playerBody; } }
 
         public NetworkVariable<int> HoldingObjectID = new NetworkVariable<int>();
         public int holdingOjectID = 0; 
@@ -49,7 +50,7 @@ namespace EscapeNetwork
                 FindObjectOfType<Grabber>().networkPlayer = this;
 
             }
-            gh.AddNetworkPlayers(playerBody);
+            //gh.AddNetworkPlayers(playerBody);
             
 
             
@@ -93,6 +94,11 @@ namespace EscapeNetwork
         public void SubmitGrabberObjectClick(GameObject clickedObject)
         {
             SubmitGrabberObjectClickServerRpc(FindObjectOfType<EscapeNetworkObjects>().GetNetworkObjectID(clickedObject));
+        }
+
+        public void ClearHolding()
+        {
+
         }
 
         // Update is called once per frame

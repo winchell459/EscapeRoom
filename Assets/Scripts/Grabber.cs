@@ -34,6 +34,17 @@ public class Grabber : MonoBehaviour
         }
     }
 
+    public void ClearHolding()
+    {
+        if (holdingObject && networkPlayer)
+        {
+            Transform temp = holdingObject;
+            AlreadyHoldingObject(ref holdingObject, ref item, pointer);
+            Destroy(holdingObject);
+        }
+        
+    }
+
     public static void AlreadyHoldingObject(ref Transform holdingObject, ref GameObject item, Transform pointer)
     {
         if (item && item.name == "key")
@@ -112,6 +123,7 @@ public class Grabber : MonoBehaviour
         {
             Debug.Log("InputField Found");
             clicked.GetComponent<UnityEngine.UI.InputField>().Select();
+            FindObjectOfType<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().movementPause = true;
         }
 
         else if (clicked.CompareTag("Button"))

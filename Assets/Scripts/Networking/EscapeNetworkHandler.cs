@@ -9,7 +9,39 @@ namespace EscapeNetwork
 {
     public class EscapeNetworkHandler : MonoBehaviour
     {
+        public GameObject networkSetupPanel, joinNetworkPanel;
+        public UnityEngine.UI.InputField joinCodeText;
+        public float joinWaitTime = 3;
+        private float joinWaitStarted = 0;
+
         private static string localIP = "";
+
+        public void BackButton()
+        {
+            joinNetworkPanel.SetActive(false);
+        }
+        public void HostRoomButton()
+        {
+            joinWaitStarted = Time.time;
+            networkSetupPanel.SetActive(false);
+            StartHost();
+        }
+        public void JoinRoomButton()
+        {
+            joinNetworkPanel.SetActive(true);
+        }
+        public void JoinButton()
+        {
+            if (joinCodeText.text != "")
+            {
+                joinWaitStarted = Time.time;
+                networkSetupPanel.SetActive(false);
+                localIP = joinCodeText.text;
+                StartClient();
+            }
+
+        }
+
         void OnGUI()
         {
             if (NetworkManager.Singleton)
@@ -17,7 +49,8 @@ namespace EscapeNetwork
                 GUILayout.BeginArea(new Rect(10, 10, 600, 600));
                 if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
                 {
-                    StartButtons();
+                    //StartButtons();
+                    if (joinWaitStarted + joinWaitTime < Time.time && networkSetupPanel) networkSetupPanel.SetActive(true);
                 }
                 else
                 {
@@ -30,7 +63,7 @@ namespace EscapeNetwork
             {
                 Destroy(gameObject);
             }
-            
+
         }
 
         static void StartButtons()
@@ -71,7 +104,7 @@ namespace EscapeNetwork
                 await relayManager.JoinRelay(localIP);
             }
             NetworkManager.Singleton.StartClient();
-            
+
         }
 
         static void StatusLabels()

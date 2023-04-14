@@ -24441,6 +24441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390747922}
   - component: {fileID: 1390747921}
+  - component: {fileID: 1390747923}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -24460,7 +24461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e209db0719ae354c8bbd6f059318837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5564564843007946672, guid: 0040b055a6c943845a610496d3c231f9, type: 3}
+  playerPrefab: {fileID: 1304564726373207334, guid: f2c69c6e053fd5e4eb5f1efd464bc09a, type: 3}
   objectTriggers:
   - {fileID: 0}
   players: []
@@ -24473,13 +24474,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390747920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.604964, y: 8.408365, z: -12.8759575}
+  m_LocalPosition: {x: 13.25, y: 0.616, z: -14.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1390747923
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390747920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1400091523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8599792117849368541, guid: 112473a489e4f4e47b0127b8a56f8582, type: 3}
